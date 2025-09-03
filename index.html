@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>WoT – Neutraler Fragebogen & Empfehlung</title>
+    <title>WoT – Neutral Questionnaire & Recommendation</title>
     <style>
         :root{
             --bg:#0b0f14;--fg:#e7eef7;--muted:#9fb3c8;--card:#121822;--accent:#77c0ff;--ok:#6ad36a;--no:#ff6b6b;
@@ -45,16 +45,16 @@
 <body>
 <div class="container">
     <header>
-        <h1>World of Tanks – Neutraler Fragebogen & T10‑Empfehlung</h1>
-        <div class="pill">Klassen berücksichtigt: Light · Medium · Heavy · TD · Arty</div>
+        <h1>World of Tanks – Neutral Questionnaire & Tier 10 Recommendation</h1>
+        <div class="pill">Classes considered: Light · Medium · Heavy · TD · SPG</div>
     </header>
 
     <div class="card" id="intro">
-        <p class="muted">Beantworte 40 neutrale Ja/Nein‑Fragen. Am Ende bekommst du 2–3 passende T10‑Vorschläge (auch klassenübergreifend), plus kurze Spielweise und einen Block „Warum nicht andere Klassen?“.</p>
+        <p class="muted">Answer 40 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.</p>
         <div class="actions">
-            <button class="primary" onclick="start()">Fragebogen starten</button>
-            <button onclick="demoFill()">Beispielantworten füllen</button>
-            <button onclick="resetAll()">Zurücksetzen</button>
+            <button class="primary" onclick="start()">Start questionnaire</button>
+            <button onclick="demoFill()">Load sample answers</button>
+            <button onclick="resetAll()">Reset</button>
         </div>
     </div>
 
@@ -63,173 +63,161 @@
     <div class="card" id="result" style="display:none;margin-top:16px"></div>
 
     <footer>
-        <p>Single‑File App · Hoste sie auf GitHub Pages (einfach diese Datei als <code>index.html</code> in ein Repo legen).</p>
+        <p>Single‑file app.</p>
     </footer>
 </div>
 
 <script>
-    // ----- Question bank (40) -----
     const SECTIONS = {
-        'A. Spieltempo & Komfort': [
-            'Fühlst du dich wohler, wenn Gefechte eher langsam anlaufen?',
-            'Nervt es dich, wenn du in einem Gefecht kaum Zeit zum Überlegen hast?',
-            'Magst du es, wenn dein Fahrzeug sofort an der Front sein kann?',
-            'Stört es dich wenig, wenn du mehrere Minuten brauchst, um in Position zu kommen?',
-            'Fühlst du dich sicherer, wenn du Zeit hast, bevor du Schaden austeilst?',
-            'Macht es dir Spaß, wenn du im Gefecht permanent auf Achse bist?',
-            'Stört es dich, wenn du dein Ziel lange einsehen musst, bevor du sicher treffen kannst?',
-            'Macht es dir weniger aus, wenn du Gegner „ziehen lässt“ und lieber wartest?'
+        'A. Pace & Comfort': [
+            'Do you feel more comfortable when battles start slowly?',
+            'Does it bother you when a battle gives you almost no time to think?',
+            'Do you enjoy when your vehicle can get to the front immediately?',
+            'Is it fine with you if it takes several minutes to reach position?',
+            'Do you feel safer when you have time before dealing damage?',
+            'Do you enjoy being constantly on the move in battle?',
+            'Does it annoy you to aim at a target for a long time before you can hit reliably?',
+            'Are you fine with letting enemies come to you and waiting instead of pushing?'
         ],
-        'B. Risiko & Belohnung': [
-            'Hast du Freude daran, in kurzer Zeit sehr viel Schaden rauszuhauen, auch wenn du danach lange nichts machen kannst?',
-            'Ziehst du es vor, konstante Treffer über Zeit zu verteilen?',
-            'Würdest du lieber sicher kleinere Treffer setzen als alles auf wenige große Treffer zu setzen?',
-            'Stört es dich stark, wenn ein verfehlter Schuss dich lange nutzlos macht?',
-            'Macht es dir Spaß, wenn eine einzige richtige Aktion über Sieg/Niederlage entscheidet?',
-            'Ist es dir angenehmer, wenn mehrere kleine Aktionen zum Erfolg führen?',
-            'Findest du es okay, wenn dein Erfolg stark vom Zufall abhängt?',
-            'Bevorzugst du Systeme, die verlässlich immer gleich funktionieren?'
+        'B. Risk & Reward': [
+            'Do you enjoy dumping a lot of damage quickly even if you cannot do anything for a while afterward?',
+            'Do you prefer to deal steady damage over time?',
+            'Would you rather land smaller reliable hits than gamble on a few big ones?',
+            'Does it really bother you when a missed shot leaves you useless for a long time?',
+            'Do you enjoy when a single correct play can decide victory or defeat?',
+            'Do you prefer when several small actions lead to success?',
+            'Are you fine with your success depending heavily on luck?',
+            'Do you prefer systems that reliably behave the same way each time?'
         ],
-        'C. Präsenz & Teamrolle': [
-            'Gefällt es dir, wenn du die Aufmerksamkeit vieler Gegner gleichzeitig auf dich ziehst?',
-            'Stört es dich weniger, wenn du unscheinbar bist, solange du effektiv bleibst?',
-            'Hast du lieber eine sichtbare, massive Rolle als eine subtile?',
-            'Magst du es, wenn deine Anwesenheit bestimmte Routen auf der Karte quasi sperrt?',
-            'Ist es dir wichtig, dass dein Team sofort merkt, wenn du da bist?',
-            'Wäre es für dich in Ordnung, wenn dein Beitrag eher indirekt sichtbar wird (z. B. Spot, Assist)?',
-            'Macht es dir Spaß, als „Schild“ für andere zu agieren, auch wenn du selbst weniger Schaden machst?',
-            'Wärst du zufrieden, wenn du vor allem für eigenen Schaden spielst, auch wenn andere weniger profitieren?'
+        'C. Presence & Team Role': [
+            'Do you like drawing the attention of many enemies at once?',
+            'Is it fine if you are unnoticed as long as you stay effective?',
+            'Do you prefer a visible, heavy role over a subtle one?',
+            'Do you like when your presence basically blocks certain routes on the map?',
+            'Is it important to you that your team immediately notices when you are present?',
+            'Is it okay if your contribution is mostly indirect (e.g., spotting, assisting)?',
+            'Do you enjoy acting as a shield for others even if you deal less damage yourself?',
+            'Would you be satisfied playing mainly for your own damage even if others benefit less?'
         ],
-        'D. Toleranz für Schwächen': [
-            'Macht es dir nichts aus, wenn dein Fahrzeug langsam ist, solange es stark ist?',
-            'Würde dich schlechte Genauigkeit stark stören?',
-            'Könntest du damit leben, dass dein Fahrzeug keine Panzerung hat, solange du andere Vorteile hast?',
-            'Nervt es dich, wenn du oft Premium-Munition nutzen musst, um durchzukommen?',
-            'Hättest du Spaß daran, eine große Silhouette zu fahren, auch wenn du ständig Fokusziel bist?',
-            'Wäre es für dich schlimm, wenn du mit wenig HP kaum noch etwas beitragen kannst?',
-            'Akzeptierst du es, wenn du in manchen Runden komplett nutzlos bist, solange du in anderen Carry sein kannst?',
-            'Macht es dir mehr Spaß, wenn du Schwächen mit Skill kompensieren musst?'
+        'D. Tolerance for Weaknesses': [
+            'Are you okay with your vehicle being slow as long as it is strong?',
+            'Would poor accuracy bother you a lot?',
+            'Could you live with having no armor as long as you have other advantages?',
+            'Does it annoy you when you often need premium ammo to penetrate?',
+            'Would you enjoy driving a large vehicle even if you are always a focus target?',
+            'Would it be a problem for you if you can hardly contribute once you are low on HP?',
+            'Do you accept being useless in some games as long as you can carry others?',
+            'Do you enjoy compensating for weaknesses with skill?'
         ],
-        'E. Flexibilität & Anpassung': [
-            'Gefällt es dir, wenn du Flanken wechseln kannst, auch mitten im Spiel?',
-            'Wärst du zufrieden, wenn du fast immer denselben Spielplan fährst?',
-            'Liebst du es, zu improvisieren, wenn sich das Gefecht chaotisch entwickelt?',
-            'Fühlst du dich wohler, wenn dein Panzer in vielen Szenarien solide bleibt, statt in wenigen zu glänzen?',
-            'Macht es dir Spaß, dich auf wechselnde Situationen einzustellen, auch wenn das schwer ist?',
-            'Ist es dir wichtiger, in einer klaren Nische extrem stark zu sein, statt überall nur „ok“?',
-            'Würdest du es bevorzugen, wenn dein Panzer auch Solo stark funktioniert, unabhängig vom Team?',
-            'Wärst du zufrieden, wenn du ohne Team kaum etwas machen kannst, solange du im Team unersetzlich bist?'
+        'E. Flexibility & Adaptation': [
+            'Do you like being able to switch flanks even mid-battle?',
+            'Would you be content running almost the same game plan every time?',
+            'Do you love improvising when the battle gets chaotic?',
+            'Do you prefer a tank that stays decent in many scenarios rather than excels in only a few?',
+            'Do you enjoy adapting to changing situations even if it is hard?',
+            'Is it more important to you to be extremely strong in a clear niche rather than just ok everywhere?',
+            'Would you prefer a tank that works well solo regardless of team?',
+            'Would you be satisfied doing little alone if you are indispensable with a team?'
         ]
     };
-
-    // ----- Tank catalog (EU T10 pool subset with hybrid notions) -----
     const TANKS = [
-        { id:'is7', name:'IS‑7', nation:'UdSSR', cls:'Heavy', role:'robuster Front‑Heavy, verzeihend und mobil genug',
-            bullets:['Sidescrape & Trades mit 490 Alpha','Kann pushen, aber auch ankern','Guter Allrounder für Gunmarks'],
+        { id:'is7', name:'IS‑7', nation:'USSR', cls:'Heavy', role:'durable frontline heavy, forgiving and mobile enough',
+            bullets:['Sidescrape and trade with 490 alpha','Can push or hold positions','Solid all-rounder for gun marks'],
             tags:['armor_high','alpha_med','mobility_med','sustained','frontline','flex'] },
-        { id:'vz55', name:'Vz. 55', nation:'Tschechien', cls:'Heavy', role:'flexibler Burst‑Heavy mit Clip/Einzelschuss',
-            bullets:['2‑Schuss‑Burst, dann zurückziehen','Starker Turm, Hull‑Down','Gute Rotationsfähigkeit'],
+        { id:'vz55', name:'Vz. 55', nation:'Czech Republic', cls:'Heavy', role:'flexible burst heavy with clip or single shot',
+            bullets:['2-shot burst then fall back','Strong turret, hull-down','Good at relocating'],
             tags:['burst','mobility_med','turret_strong','flex'] },
-        { id:'sconq', name:'Super Conqueror', nation:'UK', cls:'Heavy', role:'Hull‑Down‑Dauerfeuer mit starkem Gunhandling',
-            bullets:['Turm zeigt, Wanne verstecken','Konstanter Output, wenig RNG','Ideal zum Methodisch‑Spielen'],
+        { id:'sconq', name:'Super Conqueror', nation:'UK', cls:'Heavy', role:'hull-down sustained fire with strong gun handling',
+            bullets:['Show turret, hide hull','Consistent output, little RNG','Ideal for methodical play'],
             tags:['sustained','turret_strong','mobility_low','control'] },
-        { id:'e100', name:'E 100', nation:'Deutschland', cls:'Heavy', role:'Superschwerer Alphatrader',
-            bullets:['750‑Alpha Trades erzwingen','Stadt/Korridor dominieren','Position früh wählen'],
+        { id:'e100', name:'E 100', nation:'Germany', cls:'Heavy', role:'super-heavy alpha trader',
+            bullets:['Force 750-alpha trades','Dominate city/corridor','Pick your position early'],
             tags:['alpha_high','armor_high','mobility_low','frontline'] },
-        { id:'maus', name:'Maus', nation:'Deutschland', cls:'Heavy', role:'Extrem‑Anker & Blocker',
-            bullets:['Korridore sperren','HP als Ressource','Teamstütze, aber langsam'],
+        { id:'maus', name:'Maus', nation:'Germany', cls:'Heavy', role:'extreme anchor and blocker',
+            bullets:['Block corridors','Use HP as a resource','Supports team but slow'],
             tags:['superheavy','armor_high','mobility_verylow','frontline'] },
-        { id:'obj277', name:'Obj. 277', nation:'UdSSR', cls:'Heavy', role:'schneller Alphatrader‑Heavy',
-            bullets:['Aggressive Einstiege','490 Alpha, Mobilität','Fehler verzeiht er weniger'],
+        { id:'obj277', name:'Obj. 277', nation:'USSR', cls:'Heavy', role:'fast alpha-trading heavy',
+            bullets:['Aggressive openings','490 alpha with mobility','Less forgiving of mistakes'],
             tags:['alpha_med','mobility_high','burst_light','flex'] },
-        { id:'is4', name:'IS‑4', nation:'UdSSR', cls:'Heavy', role:'klassischer Block‑Heavy',
-            bullets:['Sidescrape und methodisch','Konstant traden','Zäh, aber nicht schnell'],
+        { id:'is4', name:'IS‑4', nation:'USSR', cls:'Heavy', role:'classic armor-blocking heavy',
+            bullets:['Sidescrape and play methodically','Trade consistently','Tough but slow'],
             tags:['armor_high','sustained','mobility_low','frontline'] },
 
-        { id:'e50m', name:'E 50 M', nation:'Deutschland', cls:'Medium', role:'„Heavy‑Medium“ mit Präzision und Panzerung',
-            bullets:['Angewinkelte Oberwanne bounct','Druck & Kontrolle auf Mid‑Range','Sehr verlässlich, wenig RNG'],
+        { id:'e50m', name:'E 50 M', nation:'Germany', cls:'Medium', role:'"Heavy-medium" with precision and armor',
+            bullets:['Angled upper plate bounces shots','Pressure and control at mid-range','Very reliable, little RNG'],
             tags:['med_heavy','sustained','mobility_med','armor_med','flex'] },
-        { id:'obj140', name:'Obj. 140', nation:'UdSSR', cls:'Medium', role:'klassischer DPM‑Flanker',
-            bullets:['Hohes Tempo & DPM','Flanken/Rotationen','Fehler werden bestraft'],
+        { id:'obj140', name:'Obj. 140', nation:'USSR', cls:'Medium', role:'classic DPM flanker',
+            bullets:['High speed and DPM','Flanking and rotations','Mistakes are punished'],
             tags:['mobility_high','sustained','glass_light','flex'] },
-        { id:'prog65', name:'Progetto 65', nation:'Italien', cls:'Medium', role:'Autoreloader‑Allrounder',
-            bullets:['Burst bei Gelegenheit','Einzelschuss für Konstanz','Sehr flexibel'],
+        { id:'prog65', name:'Progetto 65', nation:'Italy', cls:'Medium', role:'autoreloader all-rounder',
+            bullets:['Burst when opportunity arises','Single shot for consistency','Highly flexible'],
             tags:['burst','sustained','mobility_med','flex'] },
-        { id:'stb1', name:'STB‑1', nation:'Japan', cls:'Medium', role:'Hull‑Down‑DPM mit Hydropneumatik',
-            bullets:['Turm zeigen, Wanne verstecken','Konstant Druck machen','Sehr map‑abhängig'],
+        { id:'stb1', name:'STB‑1', nation:'Japan', cls:'Medium', role:'hull-down DPM with hydropneumatics',
+            bullets:['Show turret, hide hull','Apply constant pressure','Very map-dependent'],
             tags:['turret_strong','sustained','mobility_med','control'] },
-        { id:'udes1516', name:'UDES 15/16', nation:'Schweden', cls:'Medium', role:'Hull‑Down‑Medium mit gutem Handling',
-            bullets:['Hydropneumatik nutzen','Positionsspiel & Konstanz','Flankenwechsel möglich'],
+        { id:'udes1516', name:'UDES 15/16', nation:'Sweden', cls:'Medium', role:'hull-down medium with good handling',
+            bullets:['Use hydropneumatics','Positional play and consistency','Can switch flanks'],
             tags:['turret_strong','sustained','mobility_med','flex'] },
-        { id:'leo1', name:'Leopard 1', nation:'Deutschland', cls:'Medium', role:'Langstrecken‑DPM & Map‑Kontrolle',
-            bullets:['Snipen & Vision','Kaum Panzerung','Reposition nonstop'],
+        { id:'leo1', name:'Leopard 1', nation:'Germany', cls:'Medium', role:'long-range DPM and map control',
+            bullets:['Sniping and vision','Almost no armor','Constant repositioning'],
             tags:['mobility_high','sustained','glass','vision'] },
-        { id:'obj430u', name:'Obj. 430U', nation:'UdSSR', cls:'Medium', role:'gepanzertes Alpha‑Medium',
-            bullets:['Heavy‑ähnlich, aber mobiler','Trades mit Panzerung','Flanken bedrohen'],
+        { id:'obj430u', name:'Obj. 430U', nation:'USSR', cls:'Medium', role:'armored alpha medium',
+            bullets:['Heavy-like but more mobile','Trades using armor','Threaten flanks'],
             tags:['armor_med','alpha_med','mobility_med','flex'] },
 
-        { id:'jge100', name:'Jagdpanzer E 100', nation:'Deutschland', cls:'TD', role:'Superschwerer TD‑Alphaklopper',
-            bullets:['17‑cm‑Hammerschläge','Frontwinkel & Deckung','Langsam, aber furchteinflößend'],
+        { id:'jge100', name:'Jagdpanzer E 100', nation:'Germany', cls:'TD', role:'super-heavy TD alpha striker',
+            bullets:['17 cm hammer blows','Angle front and use cover','Slow but intimidating'],
             tags:['alpha_veryhigh','armor_high','mobility_low','frontline'] },
-        { id:'strv103b', name:'Strv 103B', nation:'Schweden', cls:'TD', role:'Siege‑Sniper',
-            bullets:['Stellungsspiel, Tarnung','Laser‑Genauigkeit im Siege','Stationär, teamabhängig'],
+        { id:'strv103b', name:'Strv 103B', nation:'Sweden', cls:'TD', role:'siege sniper',
+            bullets:['Positional play and camouflage','Laser accuracy in siege mode','Stationary and team-dependent'],
             tags:['sniper','sustained','stationary','vision'] },
-        { id:'grille15', name:'Grille 15', nation:'Deutschland', cls:'TD', role:'Glaskanone auf Distanz',
-            bullets:['Hohes Alpha / Genauigkeit','Extrem fragil','Positionsdisziplin nötig'],
+        { id:'grille15', name:'Grille 15', nation:'Germany', cls:'TD', role:'glass cannon at range',
+            bullets:['High alpha and accuracy','Extremely fragile','Needs positional discipline'],
             tags:['alpha_med','glass','sniper','mobility_med'] },
-        { id:'obj268v4', name:'Obj. 268 Version 4', nation:'UdSSR', cls:'TD', role:'Assault‑TD mit Ramm‑Potenzial',
-            bullets:['Panzerung + Tempo','Frontdruck & Durchbruch','Limited Gun Arc'],
+        { id:'obj268v4', name:'Obj. 268 Version 4', nation:'USSR', cls:'TD', role:'assault TD with ramming potential',
+            bullets:['Armor and speed','Front pressure and breakthroughs','Limited gun arc'],
             tags:['armor_high','mobility_med','frontline','alpha_med'] },
 
-        { id:'cgc', name:'Conqueror GC', nation:'UK', cls:'Arty', role:'indirektes Feuer mit großer Splash‑Zone',
-            bullets:['Zonen leerräumen','Teamabhängig & Geduld','Position ständig anpassen'],
+        { id:'cgc', name:'Conqueror GC', nation:'UK', cls:'Arty', role:'indirect fire with large splash zone',
+            bullets:['Clear zones','Team-dependent and requires patience','Constantly adjust position'],
             tags:['arty','indirect','stationary'] },
-        { id:'obj261', name:'Obj. 261', nation:'UdSSR', cls:'Arty', role:'schnelle Arty mit flacher Flugbahn',
-            bullets:['Schnell umlagern','Präziser als CGC','Trotzdem indirekt/teamabhängig'],
+        { id:'obj261', name:'Obj. 261', nation:'USSR', cls:'Arty', role:'fast SPG with flat trajectory',
+            bullets:['Relocate quickly','More precise than CGC','Still indirect and team-dependent'],
             tags:['arty','indirect'] },
-        { id:'gwe100', name:'G.W. E 100', nation:'Deutschland', cls:'Arty', role:'hoher Splash, träge',
-            bullets:['Splash & Betäubung','Sehr langsam','Rein indirekter Einfluss'],
+        { id:'gwe100', name:'G.W. E 100', nation:'Germany', cls:'Arty', role:'high splash, sluggish',
+            bullets:['Splash and stun','Very slow','Purely indirect impact'],
             tags:['arty','indirect','stationary'] },
     ];
 
-    // ----- Scoring rules -----
-    // We derive preferences into a feature vector, then score tanks by tag overlap.
     function evaluate(answers){
         const pref = {
-            mobility: 0,     // + prefers moving / quick to front; - prefers slow methodical
-            sustained: 0,    // + prefers constant DPM; - prefers bursty windows
-            burst: 0,        // + likes burst/clip; - dislikes
-            presence: 0,     // + wants visible presence; - ok with indirect
-            indirect: 0,     // + ok with indirect/arty
-            armor: 0,        // + values armor/block; - ok with glass
-            alpha: 0,        // + likes big hits, trades
-            vision: 0,       // + enjoys vision/sniping
-            flexibility: 0,  // + enjoys switching flanks/improv/solo
+            mobility: 0,
+            sustained: 0,
+            burst: 0,
+            presence: 0,
+            indirect: 0,
+            armor: 0,
+            alpha: 0,
+            vision: 0,
+            flexibility: 0,
         };
-
-        // Map each question to prefs (index from 1..40). yes=true/no=false
         const a = (i)=>answers[i-1]===true;
+        if(a(3)) pref.mobility+=2;
+        if(a(6)) pref.mobility+=2;
+        if(a(1)) pref.mobility-=1;
+        if(a(4)) pref.mobility-=2;
+        if(a(5)) pref.sustained+=1;
+        if(a(7)) pref.vision+=1;
+        if(a(8)) {pref.sustained+=1; pref.burst-=1;}
 
-        // A: tempo & comfort (1-8)
-        if(a(3)) pref.mobility+=2; // likes to be at front fast
-        if(a(6)) pref.mobility+=2; // enjoys being on the move
-        if(a(1)) pref.mobility-=1; // prefers slow start
-        if(a(4)) pref.mobility-=2; // fine with long approach
-        if(a(5)) pref.sustained+=1; // prefers prep before damage
-        if(a(7)) pref.vision+=1; // needs aim/vision time
-        if(a(8)) {pref.sustained+=1; pref.burst-=1;} // prefers waiting/pulls
-
-        // B: risk/reward (9-16)
         if(a(9)) pref.burst+=2; else pref.sustained+=1;
         if(a(10)) pref.sustained+=2;
         if(a(11)) pref.sustained+=1; else pref.alpha+=1;
-        if(a(12)) pref.burst-=1; // hates long downtime after miss
-        if(a(13)) pref.alpha+=1; // likes decisive plays
+        if(a(12)) pref.burst-=1;
+        if(a(13)) pref.alpha+=1;
         if(a(14)) pref.sustained+=1;
         if(a(15)) {pref.indirect+=1; pref.vision+=1;} else {pref.sustained+=1;}
         if(a(16)) pref.sustained+=1; else pref.burst+=1;
-
-        // C: presence & team role (17-24)
         if(a(17)) pref.presence+=2; else pref.indirect+=1;
         if(a(18)) pref.indirect+=1; else pref.presence+=1;
         if(a(19)) pref.presence+=1;
@@ -238,28 +226,22 @@
         if(a(22)) pref.indirect+=2;
         if(a(23)) {pref.armor+=1; pref.presence+=1;}
         if(a(24)) {pref.presence+=1;}
-
-        // D: tolerance (25-32)
         if(a(25)) {pref.armor+=1; pref.mobility-=1;}
-        if(!a(26)) pref.sustained+=1; // not bothered by poor accuracy → tolerates big guns
-        if(!a(27)) pref.armor+=1; else pref.mobility+=1; // ok with no armor → mobility play
-        if(!a(28)) pref.alpha+=1; // ok with prem use → fine with trades
+        if(!a(26)) pref.sustained+=1;
+        if(!a(27)) pref.armor+=1; else pref.mobility+=1;
+        if(!a(28)) pref.alpha+=1;
         if(a(29)) {pref.presence+=1; pref.armor+=1;}
         if(a(30)) {pref.sustained+=1;} else {pref.burst+=1;}
-        if(a(31)) {pref.alpha+=1; pref.burst+=1;} // ok with swingy
+        if(a(31)) {pref.alpha+=1; pref.burst+=1;}
         if(a(32)) {pref.flexibility+=1;} else {pref.sustained+=1;}
-
-        // E: flexibility (33-40)
         if(a(33)) pref.flexibility+=2; else pref.sustained+=1;
         if(a(34)) pref.sustained+=1; else pref.flexibility+=1;
         if(a(35)) pref.flexibility+=2; else pref.sustained+=1;
         if(a(36)) pref.sustained+=1;
         if(a(37)) pref.flexibility+=1;
-        if(a(38)) pref.flexibility+=0; else pref.sustained+=1; // niche vs allround
+        if(a(38)) pref.flexibility+=0; else pref.sustained+=1;
         if(a(39)) pref.flexibility+=2; else pref.indirect+=1;
         if(a(40)) pref.indirect+=2; else pref.presence+=1;
-
-        // Score tanks by tag alignment
         function scoreTank(t){
             let s=0; const tags=t.tags||[];
             if(tags.includes('mobility_high')) s+=pref.mobility>1?2:0;
@@ -288,7 +270,6 @@
         return {pref,scored};
     }
 
-    // ----- UI rendering -----
     function start(){
         const wrap=document.getElementById('formWrap');
         wrap.innerHTML='';
@@ -304,8 +285,8 @@
                 const lab=document.createElement('label');lab.setAttribute('for','q'+idx);lab.textContent=q;row.appendChild(lab);
                 const yn=document.createElement('div');yn.className='yesno';
                 yn.innerHTML=`
-          <input type="radio" name="q${idx}" id="q${idx}y" value="yes"><label for="q${idx}y">Ja</label>
-          <input type="radio" name="q${idx}" id="q${idx}n" value="no"><label for="q${idx}n">Nein</label>
+          <input type="radio" name="q${idx}" id="q${idx}y" value="yes"><label for="q${idx}y">Yes</label>
+          <input type="radio" name="q${idx}" id="q${idx}n" value="no"><label for="q${idx}n">No</label>
         `;
                 row.appendChild(yn);
                 sec.appendChild(row);
@@ -314,9 +295,9 @@
         }
 
         const actions=document.createElement('div');actions.className='actions';
-        const btn=document.createElement('button');btn.type='button';btn.className='primary';btn.textContent='Auswerten';btn.onclick=submit;
+        const btn=document.createElement('button');btn.type='button';btn.className='primary';btn.textContent='Show results';btn.onclick=submit;
         actions.appendChild(btn);
-        const reset=document.createElement('button');reset.type='button';reset.textContent='Zurücksetzen';reset.onclick=resetAll;actions.appendChild(reset);
+        const reset=document.createElement('button');reset.type='button';reset.textContent='Reset';reset.onclick=resetAll;actions.appendChild(reset);
         form.appendChild(actions);
 
         wrap.appendChild(form);
@@ -324,23 +305,20 @@
     }
 
     function submit(){
-        // collect 40 answers
         const answers=[];
         for(let i=1;i<=40;i++){
             const y=document.getElementById('q'+i+'y');
             const n=document.getElementById('q'+i+'n');
-            if(!y||!n){alert('Interner Fehler bei Frage '+i);return}
-            if(!y.checked && !n.checked){alert('Bitte alle Fragen beantworten. Fehlend: '+i);return}
+            if(!y||!n){alert('Internal error at question '+i);return}
+            if(!y.checked && !n.checked){alert('Please answer all questions. Missing: '+i);return}
             answers.push(!!y.checked);
         }
 
         const {pref,scored}=evaluate(answers);
-        // choose top 3 distinct by class preference (allow hybrids)
-        const top = scored.slice(0,6); // consider top 6 then reduce
+        const top = scored.slice(0,6);
         const picked=[];
         for(const s of top){
             if(picked.length>=3) break;
-            // avoid near-duplicates by same id; allow cross-class
             if(!picked.find(p=>p.t.id===s.t.id)) picked.push(s);
         }
 
@@ -352,50 +330,47 @@
         box.style.display='block';
         box.innerHTML='';
 
-        const h=document.createElement('h2');h.textContent='Deine passenden T10‑Panzer';box.appendChild(h);
+        const h=document.createElement('h2');h.textContent='Your matching Tier 10 tanks';box.appendChild(h);
 
         tanks.slice(0,3).forEach(t=>{
             const div=document.createElement('div');div.className='recommendation';
             div.innerHTML=`
         <div class="rec-title">${t.name} (${t.nation}, ${t.cls})</div>
-        <div class="muted">Aufgabe: ${t.role}</div>
+        <div class="muted">Role: ${t.role}</div>
         <ul class="bullets">${t.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
         <div class="tag muted">Tags: ${t.tags.join(', ')}</div>
       `;
             box.appendChild(div);
         });
 
-        // Why not other classes?
         const other = document.createElement('div'); other.style.marginTop='14px';
         const sum=document.createElement('details');
-        sum.innerHTML=`<summary>Warum nicht andere Klassen?</summary>`;
+        sum.innerHTML=`<summary>Why not other classes?</summary>`;
         const reasons=[];
         if(pref.indirect < pref.presence){
-            reasons.push('<b>Artillerie</b>: zu indirekt/teamabhängig im Vergleich zu deinem Wunsch nach sichtbarer Präsenz.');
+            reasons.push('<b>Artillery</b>: too indirect/team-dependent compared with your desire for visible presence.');
         } else {
-            reasons.push('<b>Artillerie</b>: möglich, da du indirekte Wirkung akzeptierst – aber die Top‑Matches liegen woanders.');
+            reasons.push('<b>Artillery</b>: possible since you accept indirect impact, but the top matches lie elsewhere.');
         }
         if(pref.mobility > 0 && pref.flexibility > 0){
-            reasons.push('<b>Superschwere (Maus/E 100/Type 71)</b>: zu träge für deine Mobilitäts‑/Flexpräferenz.');
+            reasons.push('<b>Super-heavies (Maus/E 100/Type 71)</b>: too sluggish for your mobility/flex preference.');
         } else if(pref.armor>0){
-            reasons.push('<b>Superschwere</b>: teilweise passend wegen Panzerung, aber andere Optionen bieten mehr Output.');
+            reasons.push('<b>Super-heavies</b>: partly suitable due to armor, but other options offer more output.');
         }
         if(pref.vision>0){
-            reasons.push('<b>Stationäre TDs (Strv 103B/Grille 15)</b>: starke Fernwirkung, aber zu positionsgebunden für deinen Flow.');
+            reasons.push('<b>Stationary TDs (Strv 103B/Grille 15)</b>: strong long-range impact but too position-bound for your playstyle.');
         }
-        // Lights
         if(pref.presence>pref.indirect){
-            reasons.push('<b>Lights</b>: sehr mobil, aber zu indirekter Impact (Spot/Assist) vs. dein Wunsch nach direktem Schaden.');
+            reasons.push('<b>Lights</b>: very mobile but too indirect (spot/assist) compared with your desire for direct damage.');
         } else {
-            reasons.push('<b>Lights</b>: denkbar, aber andere Klassen treffen deine Präferenz besser.');
+            reasons.push('<b>Lights</b>: possible, but other classes fit your preferences better.');
         }
 
         sum.insertAdjacentHTML('beforeend', `<div style="margin-top:8px">${reasons.map(r=>`<div>• ${r}</div>`).join('')}</div>`);
         other.appendChild(sum);
 
-        // Show top scoring diagnostics (optional)
         const dbg=document.createElement('details');
-        dbg.innerHTML='<summary>Diagnose (Top‑Scores)</summary>';
+        dbg.innerHTML='<summary>Diagnostics (top scores)</summary>';
         const list = scored.slice(0,8).map(s=>`<div>• ${s.t.name} – Score ${s.score}</div>`).join('');
         dbg.insertAdjacentHTML('beforeend', `<div class="muted" style="margin-top:6px">${list}</div>`);
 
@@ -412,7 +387,6 @@
         document.getElementById('result').innerHTML='';
     }
 
-    // Fill demo answers (pattern close to aggressive flexible player)
     function demoFill(){
         start();
         const yes=[3,6,9,10,13,16,17,19,20,21,23,24,27,29,31,33,35,36,37,39,40];
