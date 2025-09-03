@@ -1,0 +1,180 @@
+{
+  "ui": {
+    "pageTitle": "WoT – Neutrales Fragenmodul & Empfehlung",
+    "headerTitle": "World of Tanks – Neutrales Fragenmodul & Tier‑10‑Empfehlung",
+    "classesPill": "Berücksichtigte Klassen: Leicht · Mittel · Schwer · Jagdpanzer · Artillerie",
+    "introText": "Beantworte 40 neutrale Ja/Nein‑Fragen. Am Ende erhältst du 2–3 passende Tier‑10‑Vorschläge (klassenübergreifend), kurze Spielstil‑Hinweise und einen Abschnitt „Warum nicht andere Klassen?“. ",
+    "btnStart": "Fragebogen starten",
+    "btnDemo": "Beispielantworten laden",
+    "btnReset": "Zurücksetzen",
+    "btnShowResults": "Ergebnisse anzeigen",
+    "resultsTitle": "Deine passenden Tier‑10‑Panzer",
+    "roleLabel": "Rolle",
+    "tagsLabel": "Tags",
+    "whyNotTitle": "Warum nicht andere Klassen?",
+    "reasons": {
+      "arty_less_presence": "<b>Artillerie</b>: zu indirekt/teamsabhängig im Vergleich zu deinem Wunsch nach sichtbarer Präsenz.",
+      "arty_ok": "<b>Artillerie</b>: möglich, da du indirekten Einfluss akzeptierst – die Top‑Treffer liegen jedoch anderswo.",
+      "superheavy_too_sluggish": "<b>Super‑Schwere (Maus/E 100/Type 71)</b>: zu behäbig für deine Mobilitäts-/Flex‑Präferenz.",
+      "superheavy_partly": "<b>Super‑Schwere</b>: teils passend wegen Panzerung, aber andere Optionen bieten mehr Output.",
+      "stationary_tds_position_bound": "<b>Statische Jagdpanzer (Strv 103B/Grille 15)</b>: starker Fernkampf, aber zu positionsgebunden für deinen Spielstil.",
+      "lights_too_indirect": "<b>Leichte</b>: sehr mobil, aber zu indirekt (Spot/Assist) im Vergleich zu deinem Wunsch nach direktem Schaden.",
+      "lights_possible": "<b>Leichte</b>: möglich, doch andere Klassen passen besser zu deinen Präferenzen."
+    },
+    "diagnosticsTitle": "Diagnose (Top‑Scores)",
+    "scoreLabel": "Punktzahl",
+    "footer": "Single‑File‑App.",
+    "yesLabel": "Ja",
+    "noLabel": "Nein",
+    "alertInternalError": "Interner Fehler bei Frage {i}",
+    "alertMissing": "Bitte beantworte alle Fragen. Fehlend: {i}"
+  },
+  "sections": {
+    "A. Tempo & Komfort": [
+      "Fühlst du dich wohler, wenn Gefechte langsam beginnen?",
+      "Stört es dich, wenn ein Gefecht dir kaum Zeit zum Nachdenken lässt?",
+      "Magst du es, wenn dein Fahrzeug sofort an die Front kommt?",
+      "Ist es für dich okay, wenn es mehrere Minuten dauert, bis du in Position bist?",
+      "Fühlst du dich sicherer, wenn du vor dem Schadensausteilen Zeit hast?",
+      "Magst du es, im Gefecht ständig in Bewegung zu sein?",
+      "Nervt es dich, lange auf ein Ziel zielen zu müssen, bevor du zuverlässig treffen kannst?",
+      "Ist es für dich okay, Gegner zu dir kommen zu lassen und zu warten statt zu drücken?"
+    ],
+    "B. Risiko & Belohnung": [
+      "Magst du es, schnell viel Schaden zu verursachen, auch wenn du danach eine Weile nichts tun kannst?",
+      "Bevorzugst du gleichmäßigen Schaden über Zeit?",
+      "Würdest du lieber kleinere, verlässliche Treffer landen, als auf wenige große zu zocken?",
+      "Stört es dich sehr, wenn ein Fehlschuss dich lange nutzlos macht?",
+      "Magst du es, wenn ein einziger richtiger Spielzug über Sieg oder Niederlage entscheidet?",
+      "Bevorzugst du, wenn mehrere kleine Aktionen zum Erfolg führen?",
+      "Ist es für dich okay, wenn dein Erfolg stark vom Glück abhängt?",
+      "Bevorzugst du Systeme, die jedes Mal zuverlässig gleich funktionieren?"
+    ],
+    "C. Präsenz & Teamrolle": [
+      "Magst du es, die Aufmerksamkeit vieler Gegner gleichzeitig auf dich zu ziehen?",
+      "Ist es okay, unbemerkt zu bleiben, solange du effektiv bist?",
+      "Magst du eine sichtbare, schwere Rolle lieber als eine subtile?",
+      "Magst du es, wenn deine Präsenz bestimmte Routen auf der Karte praktisch blockiert?",
+      "Ist es dir wichtig, dass dein Team sofort merkt, wenn du da bist?",
+      "Ist es okay, wenn dein Beitrag hauptsächlich indirekt ist (z. B. Aufklären, Assistieren)?",
+      "Magst du es, als Schutzschild für andere zu agieren, auch wenn du selbst weniger Schaden machst?",
+      "Wärst du zufrieden, hauptsächlich für deinen eigenen Schaden zu spielen, auch wenn andere weniger profitieren?"
+    ],
+    "D. Schwächen-Toleranz": [
+      "Ist es für dich okay, wenn dein Fahrzeug langsam ist, solange es stark ist?",
+      "Würde dich schlechte Genauigkeit sehr stören?",
+      "Könntest du ohne Panzerung leben, solange du andere Vorteile hast?",
+      "Nervt es dich, wenn du oft Premium‑Munition brauchst, um zu durchschlagen?",
+      "Würdest du gern ein großes Fahrzeug fahren, auch wenn du immer Fokus‑Ziel bist?",
+      "Wäre es ein Problem, wenn du mit wenig HP kaum beitragen kannst?",
+      "Akzeptierst du es, in manchen Runden nutzlos zu sein, solange du andere carryen kannst?",
+      "Magst du es, Schwächen mit Skill auszugleichen?"
+    ],
+    "E. Flexibilität & Anpassung": [
+      "Magst du es, auch mitten im Gefecht die Flanke wechseln zu können?",
+      "Wärst du zufrieden, fast immer denselben Gameplan zu fahren?",
+      "Liebst du Improvisation, wenn das Gefecht chaotisch wird?",
+      "Bevorzugst du einen Panzer, der in vielen Szenarien solide bleibt, statt nur in wenigen zu glänzen?",
+      "Magst du es, dich auf wechselnde Situationen anzupassen, auch wenn es schwer ist?",
+      "Ist es dir wichtiger, in einer klaren Nische extrem stark zu sein, statt überall nur okay?",
+      "Würdest du einen Panzer bevorzugen, der solo gut funktioniert – unabhängig vom Team?",
+      "Wärst du zufrieden, alleine wenig zu machen, wenn du im Team unentbehrlich bist?"
+    ]
+  },
+  "tanks": [
+    { "id":"is7","name":"IS-7","nation":"UdSSR","cls":"Schwer","role":"robuster Frontlinien‑Schwerer, verzeihend und ausreichend mobil","bullets":["Seitlich anwinkeln und mit 490 Alpha traden","Kann Positionen drücken oder halten","Solider Allrounder fürs Markieren"],"tags":["armor_high","alpha_med","mobility_med","sustained","frontline","flex"] },
+    { "id":"is4","name":"IS-4","nation":"UdSSR","cls":"Schwer","role":"klassischer Riegel‑Schwerer","bullets":["Seitlich anwinkeln und methodisch spielen","Konstant traden","Zäh, aber langsam"],"tags":["armor_high","sustained","mobility_low","frontline"] },
+    { "id":"obj277","name":"Object 277","nation":"UdSSR","cls":"Schwer","role":"schneller Alpha‑Trader","bullets":["Aggressive Eröffnungen","490 Alpha mit Mobilität","Weniger verzeihend bei Fehlern"],"tags":["alpha_med","mobility_high","flex"] },
+    { "id":"obj705a","name":"Object 705A","nation":"UdSSR","cls":"Schwer","role":"Seiten‑Scraper‑Brawler mit hohem Alpha","bullets":["Nahkampf‑Trading","Starke Seiten zum Anwinkeln","Funktioniert in Korridoren"],"tags":["alpha_high","armor_high","mobility_low","frontline"] },
+    { "id":"stii","name":"ST‑II","nation":"UdSSR","cls":"Schwer","role":"Doppellauf‑Schwerer mit flexiblem Feuern","bullets":["Salve für Burst oder Einzelschuss für Kontrolle","Starke Panzerung in Nähe","Vorher positionieren, dann committen"],"tags":["burst","armor_high","mobility_low","frontline"] },
+
+    { "id":"obj140","name":"Object 140","nation":"UdSSR","cls":"Mittel","role":"klassischer DPM‑Flanker","bullets":["Hohe Geschwindigkeit und DPM","Flanken & Rotationen","Fehler werden bestraft"],"tags":["mobility_high","sustained","glass_light","flex"] },
+    { "id":"obj430u","name":"Object 430U","nation":"UdSSR","cls":"Mittel","role":"gepanzerter Alpha‑Medium","bullets":["Wie ein Schwerer, aber mobiler","Traden über Panzerung","Flanken bedrohen"],"tags":["armor_med","alpha_med","mobility_med","flex"] },
+
+    { "id":"obj268","name":"Object 268","nation":"UdSSR","cls":"Jagdpanzer","role":"angriffsfähiger JP mit Punch","bullets":["Hoher Alpha mit ordentlicher Tarnung","Gut beim Nachdrücken mit Deckung","Begrenzter Richtbereich verlangt Planung"],"tags":["alpha_high","frontline","sniper"] },
+    { "id":"obj268v4","name":"Object 268 Version 4","nation":"UdSSR","cls":"Jagdpanzer","role":"Angriffs‑JP mit Ramm‑Potenzial","bullets":["Panzerung und Tempo","Frontdruck & Durchbruch","Begrenzter Richtbereich"],"tags":["armor_high","mobility_med","frontline","alpha_med"] },
+
+    { "id":"t100lt","name":"T‑100 LT","nation":"UdSSR","cls":"Leicht","role":"heimlicher Aktiv‑Scout","bullets":["Sehr gute Tarnung und Mobilität","Niedrige Silhouette für aktives Spotten","Überleben durch Geschwindigkeit"],"tags":["mobility_high","vision","flex"] },
+
+    { "id":"obj261","name":"Object 261","nation":"UdSSR","cls":"Artillerie","role":"schnelle Arty mit flacher Flugbahn","bullets":["Schnell umpositionieren","Präziser als CGC","Weiterhin indirekt und teamabhängig"],"tags":["arty","indirect"] },
+
+    { "id":"e100","name":"E 100","nation":"Deutschland","cls":"Schwer","role":"Super‑Schwerer Alpha‑Trader","bullets":["750‑Alpha‑Trades erzwingen","Städte/Korridore dominieren","Position früh wählen"],"tags":["alpha_high","armor_high","mobility_low","frontline"] },
+    { "id":"maus","name":"Maus","nation":"Deutschland","cls":"Schwer","role":"extremer Anker & Blocker","bullets":["Korridore blocken","HP als Ressource nutzen","Unterstützt Team, aber langsam"],"tags":["superheavy","armor_high","mobility_verylow","frontline"] },
+    { "id":"pz7","name":"Pz.Kpfw. VII","nation":"Deutschland","cls":"Schwer","role":"gepanzerter Schwerer für kontrollierte Trades","bullets":["Starker Turm & Winkel","Funktioniert auf mittlere Distanz","Methodischer Vorstoß"],"tags":["armor_high","sustained","frontline"] },
+
+    { "id":"e50m","name":"E 50 Ausf. M","nation":"Deutschland","cls":"Mittel","role":"„Heavy‑Medium“ mit Präzision & Panzerung","bullets":["Gewinkelte Oberwanne prallt viel ab","Druck & Kontrolle auf mittlere Distanz","Sehr verlässlich, wenig RNG"],"tags":["med_heavy","sustained","mobility_med","armor_med","flex"] },
+    { "id":"leo1","name":"Leopard 1","nation":"Deutschland","cls":"Mittel","role":"Fern‑DPM & Kartenkontrolle","bullets":["Snipen & Sichtspiel","Kaum Panzerung","Ständiges Umpositionieren"],"tags":["mobility_high","sustained","glass","vision"] },
+
+    { "id":"grille15","name":"Grille 15","nation":"Deutschland","cls":"Jagdpanzer","role":"Glaskanone auf Distanz","bullets":["Hoher Alpha & Genauigkeit","Extrem fragil","Positionsdisziplin nötig"],"tags":["alpha_high","glass","sniper","mobility_med"] },
+    { "id":"jge100","name":"Jagdpanzer E 100","nation":"Deutschland","cls":"Jagdpanzer","role":"Super‑Schwerer JP mit Kolbenhieb‑Alpha","bullets":["17‑cm‑Hammerhiebe","Front anwinkeln & Deckung nutzen","Langsam, aber einschüchternd"],"tags":["alpha_veryhigh","armor_high","mobility_low","frontline"] },
+
+    { "id":"rpw","name":"Rheinmetall Panzerwagen","nation":"Deutschland","cls":"Leicht","role":"schneller Scout im Rad‑Stil ohne Räder","bullets":["Hohe Geschwindigkeit & Sichtweite","Direkte Kartenkontrolle via Spots","Sehr fragil – Trades vermeiden"],"tags":["mobility_high","vision","glass","flex"] },
+
+    { "id":"gwe100","name":"G.W. E 100","nation":"Deutschland","cls":"Artillerie","role":"hoher Splash, behäbig","bullets":["Splash & Betäubung","Sehr langsam","Reiner indirekter Einfluss"],"tags":["arty","indirect","stationary"] },
+
+    { "id":"sconq","name":"Super Conqueror","nation":"Vereinigtes Königreich","cls":"Schwer","role":"Hulldown‑Dauerfeuer mit guter Gun‑Handling","bullets":["Turm zeigen, Wanne verstecken","Konstanter Output, wenig RNG","Ideal für methodisches Spiel"],"tags":["sustained","turret_strong","mobility_low","control"] },
+    { "id":"fv230","name":"FV230 Canopener","nation":"Vereinigtes Königreich","cls":"Schwer","role":"neue turmbewehrte Generation, Hulldown‑Enforcer","bullets":["Starke Turmpräsenz","Kontrollierte Vorstöße","Zuverlässige Trades"],"tags":["turret_strong","sustained","frontline"] },
+
+    { "id":"centax","name":"Centurion Action X","nation":"Vereinigtes Königreich","cls":"Mittel","role":"robuster Hulldown‑Medium","bullets":["Negativrichtwinkel ausnutzen","Gratlinien kontrollieren","Zuverlässige Kanone"],"tags":["turret_strong","sustained","flex"] },
+    { "id":"concept5","name":"Concept No. 5","nation":"Vereinigtes Königreich","cls":"Mittel","role":"Konzept‑Medium mit starkem Gratspiel","bullets":["Grate halten","Mit präzisem Feuer unterstützen","Adaptives Mitteldistanz‑Spiel"],"tags":["turret_strong","sustained","flex"] },
+
+    { "id":"badger","name":"FV217 Badger","nation":"Vereinigtes Königreich","cls":"Jagdpanzer","role":"DPM‑Festung","bullets":["Facehug & farmen","Absurder Front‑DPM","Flanken‑anfällig"],"tags":["sustained","frontline","armor_high"] },
+    { "id":"fv4005","name":"FV4005 Stage II","nation":"Vereinigtes Königreich","cls":"Jagdpanzer","role":"riesiger Alpha‑Glaskanone","bullets":["Onetap‑Potenzial mit HESH","Hinter Deckung spielen","Bestrafte Fehler hart"],"tags":["alpha_veryhigh","glass","sniper"] },
+
+    { "id":"manticore","name":"Manticore","nation":"Vereinigtes Königreich","cls":"Leicht","role":"Stealth‑Grat‑Scout","bullets":["Außergewöhnliche Tarnung","Von Graten spotten","Niedriger DPM – Trades vermeiden"],"tags":["vision","mobility_high","glass"] },
+
+    { "id":"cgc","name":"Conqueror Gun Carriage","nation":"Vereinigtes Königreich","cls":"Artillerie","role":"indirektes Feuer mit großem Splash","bullets":["Zonen freiräumen","Teamabhängig & geduldsintensiv","Position bedacht wählen"],"tags":["arty","indirect","stationary"] },
+
+    { "id":"amx50b","name":"AMX 50 B","nation":"Frankreich","cls":"Schwer","role":"mobiler Clip‑Schwerer","bullets":["4‑Schuss‑Clip schnell entladen","Während Reload umpositionieren","Isolierte Ziele bestrafen"],"tags":["burst","mobility_high","flex"] },
+    { "id":"amxm4","name":"AMX M4 mle. 54","nation":"Frankreich","cls":"Schwer","role":"gepanzertes Alpha‑Trading","bullets":["Frontlinien‑Trades","Gute Panzerungsprofile","Methodisches Vorrücken"],"tags":["alpha_med","armor_high","frontline"] },
+
+    { "id":"bc25t","name":"Bat.-Châtillon 25 t","nation":"Frankreich","cls":"Mittel","role":"hochmobile Autoloader‑Medium","bullets":["Clip‑Fenster nutzen & verlegen","Sichtkontrolle","Lange Trades vermeiden"],"tags":["burst","mobility_high","vision","glass"] },
+
+    { "id":"fochb","name":"AMX 50 Foch B","nation":"Frankreich","cls":"Jagdpanzer","role":"Autoloader‑JP mit Burst","bullets":["Massiver Clip auf Flanken","Hinterhalt, dann verlegen","Timing‑Disziplin nötig"],"tags":["burst","alpha_high","mobility_med"] },
+
+    { "id":"ebrb","name":"Panhard EBR 105","nation":"Frankreich","cls":"Leicht","role":"radgebundener Aktiv‑Scout/Harasser","bullets":["Extreme Mobilität","Sicht & Belästigung","Sehr fragil"],"tags":["mobility_high","vision","glass","flex"] },
+    { "id":"amx13105","name":"AMX 13 105","nation":"Frankreich","cls":"Leicht","role":"Autoloader‑Leichter","bullets":["Clip & weg","Starke Tarnung","Isolierte Ziele picken"],"tags":["burst","vision","mobility_high","glass"] },
+
+    { "id":"bat155","name":"Bat.-Châtillon 155 58","nation":"Frankreich","cls":"Artillerie","role":"mobile Arty mit Clip‑Gefühl","bullets":["Bogenoptionen & Betäubung","Zwischen Schüssen verlegen","Indirekte Unterstützung"],"tags":["arty","indirect"] },
+
+    { "id":"t57","name":"T57 Heavy Tank","nation":"USA","cls":"Schwer","role":"Clip‑Schwerer für Nahbereichs‑Bursts","bullets":["Clip im Brawl entladen","Während Reload Deckung nutzen","Mit Support stark"],"tags":["burst","frontline","mobility_med"] },
+    { "id":"t110e5","name":"T110E5","nation":"USA","cls":"Schwer","role":"Allround‑Schwerer mit verlässlicher Kanone","bullets":["Wenn möglich hulldown","Konstante Trades","Flexible Rotationen"],"tags":["sustained","turret_strong","flex"] },
+    { "id":"mvy","name":"M‑V‑Y","nation":"USA","cls":"Schwer","role":"Yoh‑Schwerer mit Notlaufketten","bullets":["Verzeihende Mobilität durch Ketten","Aggressives Mitteldistanz‑Spiel","Gutes Gun‑Handling"],"tags":["sustained","frontline","flex"] },
+
+    { "id":"m48","name":"M48A5 Patton","nation":"USA","cls":"Mittel","role":"Sicht/Kontroll‑Medium","bullets":["Hohe Sichtweite","Gratarbeit & Support","Verlässlicher DPM"],"tags":["vision","sustained","flex"] },
+
+    { "id":"t110e3","name":"T110E3","nation":"USA","cls":"Jagdpanzer","role":"gepanzertes Angriffs‑JP","bullets":["Sehr starke Frontpanzerung","Ecken‑Druck","Begrenzter Richtbereich"],"tags":["armor_high","frontline","alpha_med"] },
+    { "id":"t110e4","name":"T110E4","nation":"USA","cls":"Jagdpanzer","role":"turmbewehrtes JP für Trades","bullets":["Turm für Winkel nutzen","Alpha‑Trades, dann zurückfallen","Hybrid‑Spiel"],"tags":["alpha_med","flex","frontline"] },
+
+    { "id":"sheridan","name":"XM551 Sheridan","nation":"USA","cls":"Leicht","role":"Hybrid Scout/Harasser","bullets":["Gute Sichtweite","HEAT/HE klug nutzen","An Kanten & über Sicht spielen"],"tags":["vision","mobility_high","flex"] },
+
+    { "id":"t92","name":"T92 HMC","nation":"USA","cls":"Artillerie","role":"Arty mit großem Splash","bullets":["Großer Splash & Betäubung","Sehr langsam","Rein indirekt"],"tags":["arty","indirect","stationary"] },
+
+    { "id":"121","name":"121","nation":"China","cls":"Mittel","role":"Alpha‑lastiger Medium","bullets":["Hohe Pen/Alpha für einen Medium","Mid‑Range Trades","Flanken, wenn sich Chancen ergeben"],"tags":["alpha_med","sustained","flex"] },
+    { "id":"wz1321","name":"WZ‑132‑1","nation":"China","cls":"Leicht","role":"heimlicher Leichter mit guter Kanone","bullets":["Aktives oder passives Spotten","Gute Tarnung & DPM für einen Leichten","Lange Trades vermeiden"],"tags":["vision","mobility_high","flex"] },
+    { "id":"bz75","name":"BZ‑75","nation":"China","cls":"Schwer","role":"Raketen‑Brawler","bullets":["Jet‑Boost für Entries","Hohe Alpha‑Trades","Pushes über Panzerung"],"tags":["alpha_high","frontline","mobility_med"] },
+    { "id":"wz1115a","name":"WZ‑111 5A","nation":"China","cls":"Schwer","role":"mobiler Schwer‑Trader","bullets":["Gute Mobilität für Schwer","Zuverlässige Trades","Flanken unter Druck setzen"],"tags":["alpha_med","mobility_med","frontline"] },
+    { "id":"wz113gft","name":"WZ‑113G FT","nation":"China","cls":"Jagdpanzer","role":"Alpha‑JP mit Panzerung","bullets":["Starkes Frontprofil","Peeks bestrafen","Hinter Deckung vorrücken"],"tags":["alpha_high","armor_high","frontline"] },
+
+    { "id":"tvp5051","name":"TVP T 50/51","nation":"Tschechische Republik","cls":"Mittel","role":"hohes Tempo, Autoloader‑Medium","bullets":["Schneller Clip, extreme Mobilität","Fenster nutzen, dann verlegen","Dauertrades vermeiden"],"tags":["burst","mobility_high","glass","flex"] },
+    { "id":"vz55","name":"Vz. 55","nation":"Tschechische Republik","cls":"Schwer","role":"flexibler Burst‑Schwerer (Clip oder Einzelschuss)","bullets":["2‑Schuss‑Burst, dann zurück","Starker Turm, hulldown","Gut im Verlegen"],"tags":["burst","mobility_med","turret_strong","flex"] },
+    { "id":"vz71","name":"Vz. 71 Tesák","nation":"Tschechische Republik","cls":"Leicht","role":"aktiver Leichter mit Sichtdruck","bullets":["Aggressiv scouten, wenn sicher","Ständig verlegen","Kartenkontrolle verwerten"],"tags":["mobility_high","vision","glass","flex"] },
+
+    { "id":"prog65","name":"Progetto M40 mod. 65","nation":"Italien","cls":"Mittel","role":"Autoreloader‑Allrounder","bullets":["Burst, wenn möglich","Einzelschuss für Konsistenz","Sehr flexibel"],"tags":["burst","sustained","mobility_med","flex"] },
+    { "id":"rino","name":"Rinoceronte","nation":"Italien","cls":"Schwer","role":"Turm‑Autoreloader‑Schwerer","bullets":["A/R‑Fenster für Picks nutzen","Wo möglich hulldown","Zwischen Schüssen nicht übercommitten"],"tags":["burst","turret_strong","control"] },
+    { "id":"minotauro","name":"Controcarro 3 Minotauro","nation":"Italien","cls":"Jagdpanzer","role":"gepanzertes Autoreloader‑JP","bullets":["Hulldown‑Bunker","Mit kurzen Bursts bestrafen","Begrenzte Winkel – voraimen"],"tags":["burst","armor_high","frontline"] },
+
+    { "id":"stb1","name":"STB‑1","nation":"Japan","cls":"Mittel","role":"Hulldown‑DPM mit Hydropneumatik","bullets":["Turm zeigen, Wanne verstecken","Konstanten Druck ausüben","Stark kartenabhängig"],"tags":["turret_strong","sustained","mobility_med","control"] },
+    { "id":"type5","name":"Type 5 Heavy","nation":"Japan","cls":"Schwer","role":"sehr großer Bunker‑Schwerer","bullets":["Einstecken und traden","Am besten in Korridoren","Team‑Anker"],"tags":["superheavy","armor_high","mobility_verylow","frontline"] },
+    { "id":"type71","name":"Type 71","nation":"Japan","cls":"Schwer","role":"moderner Hulldown‑Schwerer","bullets":["Hydro‑Federung nutzen","Starker Turm","Methodischer Druck"],"tags":["turret_strong","armor_high","frontline"] },
+    { "id":"hori3","name":"Ho‑Ri 3","nation":"Japan","cls":"Jagdpanzer","role":"hoch‑Alpha, turmloser JP","bullets":["Peeks aus der Distanz bestrafen","Anwinkeln und voraimen","Flankenanfällig"],"tags":["alpha_high","sniper"] },
+
+    { "id":"cs63","name":"CS‑63","nation":"Polen","cls":"Mittel","role":"Turbo‑Boost‑Flex‑Medium","bullets":["Speed‑Modus klug nutzen","Früh Positionen nehmen","Mittel‑Support & Flanken"],"tags":["mobility_high","flex","sustained"] },
+    { "id":"60tp","name":"60TP Lewandowskiego","nation":"Polen","cls":"Schwer","role":"Alpha‑Trading‑Schwerer","bullets":["Große Hits um Ecken","Wo möglich seitlich anwinkeln","Gier bestrafen"],"tags":["alpha_high","frontline","armor_high"] },
+    { "id":"nc70","name":"NC‑70 Błyskawica","nation":"Polen","cls":"Jagdpanzer","role":"Alpha‑JP mit Mobilitätsvorteil","bullets":["Hinterhalt & Druckfenster","Gute Pen & Winkel","Überexposure vermeiden"],"tags":["alpha_high","mobility_med","frontline"] },
+
+    { "id":"udes1516","name":"UDES 15/16","nation":"Schweden","cls":"Mittel","role":"Hulldown‑Medium mit gutem Handling","bullets":["Hydropneumatik nutzen","Positionsspiel & Konstanz","Flankenwechsel möglich"],"tags":["turret_strong","sustained","mobility_med","flex"] },
+    { "id":"kranvagn","name":"Kranvagn","nation":"Schweden","cls":"Schwer","role":"Turm‑Autoloader‑Schwerer","bullets":["Hulldown‑Trading","Kurze Bursts, dann Deckung","Gratkontrolle"],"tags":["burst","turret_strong","frontline"] },
+    { "id":"strv103b","name":"Strv 103B","nation":"Schweden","cls":"Jagdpanzer","role":"Belagerungs‑Sniper","bullets":["Positionsspiel & Tarnung","Laserpräzision im Belagerungsmodus","Stationär & teamabhängig"],"tags":["sniper","sustained","stationary","vision"] }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "ui": {
+    "pageTitle": "WoT – Neutral Questionnaire & Recommendation",
+    "headerTitle": "World of Tanks – Neutral Questionnaire & Tier 10 Recommendation",
+    "classesPill": "Classes considered: Light · Medium · Heavy · TD · SPG",
+    "introText": "Answer 40 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.",
+    "btnStart": "Start questionnaire",
+    "btnDemo": "Load sample answers",
+    "btnReset": "Reset",
+    "btnShowResults": "Show results",
+    "resultsTitle": "Your matching Tier 10 tanks",
+    "roleLabel": "Role",
+    "tagsLabel": "Tags",
+    "whyNotTitle": "Why not other classes?",
+    "reasons": {
+      "arty_less_presence": "<b>Artillery</b>: too indirect/team-dependent compared with your desire for visible presence.",
+      "arty_ok": "<b>Artillery</b>: possible since you accept indirect impact, but the top matches lie elsewhere.",
+      "superheavy_too_sluggish": "<b>Super-heavies (Maus/E 100/Type 71)</b>: too sluggish for your mobility/flex preference.",
+      "superheavy_partly": "<b>Super-heavies</b>: partly suitable due to armor, but other options offer more output.",
+      "stationary_tds_position_bound": "<b>Stationary TDs (Strv 103B/Grille 15)</b>: strong long-range impact but too position-bound for your playstyle.",
+      "lights_too_indirect": "<b>Lights</b>: very mobile but too indirect (spot/assist) compared with your desire for direct damage.",
+      "lights_possible": "<b>Lights</b>: possible, but other classes fit your preferences better."
+    },
+    "diagnosticsTitle": "Diagnostics (top scores)",
+    "scoreLabel": "Score",
+    "footer": "Single‑file app.",
+    "yesLabel": "Yes",
+    "noLabel": "No",
+    "alertInternalError": "Internal error at question {i}",
+    "alertMissing": "Please answer all questions. Missing: {i}"
+  },
+  "sections": {
+    "A. Pace & Comfort": [
+      "Do you feel more comfortable when battles start slowly?",
+      "Does it bother you when a battle gives you almost no time to think?",
+      "Do you enjoy when your vehicle can get to the front immediately?",
+      "Is it fine with you if it takes several minutes to reach position?",
+      "Do you feel safer when you have time before dealing damage?",
+      "Do you enjoy being constantly on the move in battle?",
+      "Does it annoy you to aim at a target for a long time before you can hit reliably?",
+      "Are you fine with letting enemies come to you and waiting instead of pushing?"
+    ],
+    "B. Risk & Reward": [
+      "Do you enjoy dumping a lot of damage quickly even if you cannot do anything for a while afterward?",
+      "Do you prefer to deal steady damage over time?",
+      "Would you rather land smaller reliable hits than gamble on a few big ones?",
+      "Does it really bother you when a missed shot leaves you useless for a long time?",
+      "Do you enjoy when a single correct play can decide victory or defeat?",
+      "Do you prefer when several small actions lead to success?",
+      "Are you fine with your success depending heavily on luck?",
+      "Do you prefer systems that reliably behave the same way each time?"
+    ],
+    "C. Presence & Team Role": [
+      "Do you like drawing the attention of many enemies at once?",
+      "Is it fine if you are unnoticed as long as you stay effective?",
+      "Do you prefer a visible, heavy role over a subtle one?",
+      "Do you like when your presence basically blocks certain routes on the map?",
+      "Is it important to you that your team immediately notices when you are present?",
+      "Is it okay if your contribution is mostly indirect (e.g., spotting, assisting)?",
+      "Do you enjoy acting as a shield for others even if you deal less damage yourself?",
+      "Would you be satisfied playing mainly for your own damage even if others benefit less?"
+    ],
+    "D. Tolerance for Weaknesses": [
+      "Are you okay with your vehicle being slow as long as it is strong?",
+      "Would poor accuracy bother you a lot?",
+      "Could you live with having no armor as long as you have other advantages?",
+      "Does it annoy you when you often need premium ammo to penetrate?",
+      "Would you enjoy driving a large vehicle even if you are always a focus target?",
+      "Would it be a problem for you if you can hardly contribute once you are low on HP?",
+      "Do you accept being useless in some games as long as you can carry others?",
+      "Do you enjoy compensating for weaknesses with skill?"
+    ],
+    "E. Flexibility & Adaptation": [
+      "Do you like being able to switch flanks even mid-battle?",
+      "Would you be content running almost the same game plan every time?",
+      "Do you love improvising when the battle gets chaotic?",
+      "Do you prefer a tank that stays decent in many scenarios rather than excels in only a few?",
+      "Do you enjoy adapting to changing situations even if it is hard?",
+      "Is it more important to you to be extremely strong in a clear niche rather than just ok everywhere?",
+      "Would you prefer a tank that works well solo regardless of team?",
+      "Would you be satisfied doing little alone if you are indispensable with a team?"
+    ]
+  },
+  "tanks": [
+    { "id":"is7","name":"IS-7","nation":"USSR","cls":"Heavy","role":"durable frontline heavy, forgiving and mobile enough","bullets":["Sidescrape and trade with 490 alpha","Can push or hold positions","Solid all-rounder for gun marks"],"tags":["armor_high","alpha_med","mobility_med","sustained","frontline","flex"] },
+    { "id":"is4","name":"IS-4","nation":"USSR","cls":"Heavy","role":"classic armor-blocking heavy","bullets":["Sidescrape and play methodically","Trade consistently","Tough but slow"],"tags":["armor_high","sustained","mobility_low","frontline"] },
+    { "id":"obj277","name":"Object 277","nation":"USSR","cls":"Heavy","role":"fast alpha-trading heavy","bullets":["Aggressive openings","490 alpha with mobility","Less forgiving of mistakes"],"tags":["alpha_med","mobility_high","flex"] },
+    { "id":"obj705a","name":"Object 705A","nation":"USSR","cls":"Heavy","role":"side-scraping brawler with high alpha","bullets":["Close-range trading","Strong sides for angling","Works in corridors"],"tags":["alpha_high","armor_high","mobility_low","frontline"] },
+    { "id":"stii","name":"ST-II","nation":"USSR","cls":"Heavy","role":"dual-gun heavy with flexible firing","bullets":["Salvo for burst or single-fire for control","Strong armor up close","Position before committing"],"tags":["burst","armor_high","mobility_low","frontline"] },
+
+    { "id":"obj140","name":"Object 140","nation":"USSR","cls":"Medium","role":"classic DPM flanker","bullets":["High speed and DPM","Flanking and rotations","Mistakes are punished"],"tags":["mobility_high","sustained","glass_light","flex"] },
+    { "id":"obj430u","name":"Object 430U","nation":"USSR","cls":"Medium","role":"armored alpha medium","bullets":["Heavy-like but more mobile","Trades using armor","Threaten flanks"],"tags":["armor_med","alpha_med","mobility_med","flex"] },
+
+    { "id":"obj268","name":"Object 268","nation":"USSR","cls":"TD","role":"assault-capable TD with punch","bullets":["High alpha with decent camo","Good when pushed with cover","Arc limits demand planning"],"tags":["alpha_high","frontline","sniper"] },
+    { "id":"obj268v4","name":"Object 268 Version 4","nation":"USSR","cls":"TD","role":"assault TD with ramming potential","bullets":["Armor and speed","Front pressure and breakthroughs","Limited gun arc"],"tags":["armor_high","mobility_med","frontline","alpha_med"] },
+
+    { "id":"t100lt","name":"T-100 LT","nation":"USSR","cls":"Light","role":"stealthy active scout","bullets":["Great camo and mobility","Low silhouette for active spotting","Survivability through speed"],"tags":["mobility_high","vision","flex"] },
+
+    { "id":"obj261","name":"Object 261","nation":"USSR","cls":"SPG","role":"fast SPG with flat trajectory","bullets":["Relocate quickly","More precise than CGC","Still indirect and team-dependent"],"tags":["arty","indirect"] },
+
+    { "id":"e100","name":"E 100","nation":"Germany","cls":"Heavy","role":"super-heavy alpha trader","bullets":["Force 750-alpha trades","Dominate city/corridor","Pick your position early"],"tags":["alpha_high","armor_high","mobility_low","frontline"] },
+    { "id":"maus","name":"Maus","nation":"Germany","cls":"Heavy","role":"extreme anchor and blocker","bullets":["Block corridors","Use HP as a resource","Supports team but slow"],"tags":["superheavy","armor_high","mobility_verylow","frontline"] },
+    { "id":"pz7","name":"Pz.Kpfw. VII","nation":"Germany","cls":"Heavy","role":"armored heavy for controlled trades","bullets":["Strong turret and angles","Works in mid-range trades","Methodical advance"],"tags":["armor_high","sustained","frontline"] },
+
+    { "id":"e50m","name":"E 50 Ausf. M","nation":"Germany","cls":"Medium","role":"\"heavy-medium\" with precision and armor","bullets":["Angled upper plate bounces shots","Pressure and control at mid-range","Very reliable, little RNG"],"tags":["med_heavy","sustained","mobility_med","armor_med","flex"] },
+    { "id":"leo1","name":"Leopard 1","nation":"Germany","cls":"Medium","role":"long-range DPM and map control","bullets":["Sniping and vision","Almost no armor","Constant repositioning"],"tags":["mobility_high","sustained","glass","vision"] },
+
+    { "id":"grille15","name":"Grille 15","nation":"Germany","cls":"TD","role":"glass cannon at range","bullets":["High alpha and accuracy","Extremely fragile","Needs positional discipline"],"tags":["alpha_high","glass","sniper","mobility_med"] },
+    { "id":"jge100","name":"Jagdpanzer E 100","nation":"Germany","cls":"TD","role":"super-heavy TD alpha striker","bullets":["17 cm hammer blows","Angle front and use cover","Slow but intimidating"],"tags":["alpha_veryhigh","armor_high","mobility_low","frontline"] },
+
+    { "id":"rpw","name":"Rheinmetall Panzerwagen","nation":"Germany","cls":"Light","role":"fast wheeled-style scout without wheels","bullets":["High speed and view range","Direct map control via spots","Very fragile – avoid trades"],"tags":["mobility_high","vision","glass","flex"] },
+
+    { "id":"gwe100","name":"G.W. E 100","nation":"Germany","cls":"SPG","role":"high splash, sluggish","bullets":["Splash and stun","Very slow","Purely indirect impact"],"tags":["arty","indirect","stationary"] },
+
+    { "id":"sconq","name":"Super Conqueror","nation":"UK","cls":"Heavy","role":"hull-down sustained fire with strong gun handling","bullets":["Show turret, hide hull","Consistent output, little RNG","Ideal for methodical play"],"tags":["sustained","turret_strong","mobility_low","control"] },
+    { "id":"fv230","name":"FV230 Canopener","nation":"UK","cls":"Heavy","role":"new-gen turreted heavy, hull-down enforcer","bullets":["Strong turret presence","Controlled pushes","Trades reliably"],"tags":["turret_strong","sustained","frontline"] },
+
+    { "id":"centax","name":"Centurion Action X","nation":"UK","cls":"Medium","role":"sturdy hull-down medium","bullets":["Gun depression abuse","Control ridgelines","Reliable gun"],"tags":["turret_strong","sustained","flex"] },
+    { "id":"concept5","name":"Concept No. 5","nation":"UK","cls":"Medium","role":"concept medium with strong ridge play","bullets":["Hold ridges","Support with accurate fire","Adaptive mid-range"],"tags":["turret_strong","sustained","flex"] },
+
+    { "id":"badger","name":"FV217 Badger","nation":"UK","cls":"TD","role":"DPM fortress","bullets":["Face-hug and farm","Insane frontal DPM","Weak to flanks"],"tags":["sustained","frontline","armor_high"] },
+    { "id":"fv4005","name":"FV4005 Stage II","nation":"UK","cls":"TD","role":"huge alpha glass cannon","bullets":["One-tap potential with HESH","Play behind cover","Punishes mistakes"],"tags":["alpha_veryhigh","glass","sniper"] },
+
+    { "id":"manticore","name":"Manticore","nation":"UK","cls":"Light","role":"stealth ridge scout","bullets":["Exceptional camo","Spot from ridges","Low DPM – avoid trading"],"tags":["vision","mobility_high","glass"] },
+
+    { "id":"cgc","name":"Conqueror Gun Carriage","nation":"UK","cls":"SPG","role":"indirect fire with large splash zone","bullets":["Clear zones","Team-dependent and requires patience","Carefully select position"],"tags":["arty","indirect","stationary"] },
+
+    { "id":"amx50b","name":"AMX 50 B","nation":"France","cls":"Heavy","role":"mobile clip heavy","bullets":["Dump 4-shot clip fast","Reposition while reloading","Punish isolated targets"],"tags":["burst","mobility_high","flex"] },
+    { "id":"amxm4","name":"AMX M4 mle. 54","nation":"France","cls":"Heavy","role":"armored alpha-trader heavy","bullets":["Frontline trades","Decent armor profile","Methodical advance"],"tags":["alpha_med","armor_high","frontline"] },
+
+    { "id":"bc25t","name":"Bat.-Châtillon 25 t","nation":"France","cls":"Medium","role":"high-mobility autoloader medium","bullets":["Clip windows & relocate","Vision control","Avoid long trades"],"tags":["burst","mobility_high","vision","glass"] },
+
+    { "id":"fochb","name":"AMX 50 Foch B","nation":"France","cls":"TD","role":"autoloader TD burst","bullets":["Massive clip on flanks","Ambush then relocate","Needs timing discipline"],"tags":["burst","alpha_high","mobility_med"] },
+
+    { "id":"ebrb","name":"Panhard EBR 105","nation":"France","cls":"Light","role":"wheeled active scout/harasser","bullets":["Extreme mobility","Vision and harassment","Very fragile"],"tags":["mobility_high","vision","glass","flex"] },
+    { "id":"amx13105","name":"AMX 13 105","nation":"France","cls":"Light","role":"autoloader light","bullets":["Clip and run","Strong camo","Pick isolated targets"],"tags":["burst","vision","mobility_high","glass"] },
+
+    { "id":"bat155","name":"Bat.-Châtillon 155 58","nation":"France","cls":"SPG","role":"mobile SPG with clip feel","bullets":["Arc options & stun","Relocate between shots","Indirect support"],"tags":["arty","indirect"] },
+
+    { "id":"t57","name":"T57 Heavy Tank","nation":"USA","cls":"Heavy","role":"clip heavy for close-range bursts","bullets":["Dump clip in brawls","Use cover during reload","Works with support"],"tags":["burst","frontline","mobility_med"] },
+    { "id":"t110e5","name":"T110E5","nation":"USA","cls":"Heavy","role":"all-round heavy with reliable gun","bullets":["Hull-down when possible","Consistent trades","Flexible rotations"],"tags":["sustained","turret_strong","flex"] },
+    { "id":"mvy","name":"M-V-Y","nation":"USA","cls":"Heavy","role":"Yoh heavy with emergency tracks","bullets":["Forgiving mobility from tracks","Aggressive mid-range","Solid gun handling"],"tags":["sustained","frontline","flex"] },
+
+    { "id":"m48","name":"M48A5 Patton","nation":"USA","cls":"Medium","role":"vision/control medium","bullets":["Great view range","Ridge work & support","Reliable DPM"],"tags":["vision","sustained","flex"] },
+
+    { "id":"t110e3","name":"T110E3","nation":"USA","cls":"TD","role":"armored assault TD","bullets":["Strong frontal armor","Corner pressure","Limited arc"],"tags":["armor_high","frontline","alpha_med"] },
+    { "id":"t110e4","name":"T110E4","nation":"USA","cls":"TD","role":"turreted TD for trades","bullets":["Use turret for angles","Alpha trades then fall back","Hybrid play"],"tags":["alpha_med","flex","frontline"] },
+
+    { "id":"sheridan","name":"XM551 Sheridan","nation":"USA","cls":"Light","role":"hybrid scout/harasser","bullets":["Good view range","Use HEAT/HE smartly","Play edges & vision"],"tags":["vision","mobility_high","flex"] },
+
+    { "id":"t92","name":"T92 HMC","nation":"USA","cls":"SPG","role":"heavy splash SPG","bullets":["Large splash & stun","Very slow","Purely indirect"],"tags":["arty","indirect","stationary"] },
+
+    { "id":"121","name":"121","nation":"China","cls":"Medium","role":"alpha-leaning medium","bullets":["High pen/alpha for a med","Trades at mid-range","Flank when openings arise"],"tags":["alpha_med","sustained","flex"] },
+    { "id":"wz1321","name":"WZ-132-1","nation":"China","cls":"Light","role":"stealthy light with good gun","bullets":["Active or passive spots","Solid camo & DPM for a light","Avoid extended trades"],"tags":["vision","mobility_high","flex"] },
+    { "id":"bz75","name":"BZ-75","nation":"China","cls":"Heavy","role":"rocket-boosted brawler","bullets":["Jet boost for entries","High alpha trades","Armor-reliant pushes"],"tags":["alpha_high","frontline","mobility_med"] },
+    { "id":"wz1115a","name":"WZ-111 5A","nation":"China","cls":"Heavy","role":"mobile heavy trader","bullets":["Good mobility for heavy","Reliable trades","Pressure flanks"],"tags":["alpha_med","mobility_med","frontline"] },
+    { "id":"wz113gft","name":"WZ-113G FT","nation":"China","cls":"TD","role":"alpha TD with armor","bullets":["Strong frontal profile","Punish peeks","Advance behind cover"],"tags":["alpha_high","armor_high","frontline"] },
+
+    { "id":"tvp5051","name":"TVP T 50/51","nation":"Czech Republic","cls":"Medium","role":"high-tempo autoloader medium","bullets":["Fast clip, extreme mobility","Pick windows, then relocate","Avoid sustained trades"],"tags":["burst","mobility_high","glass","flex"] },
+    { "id":"vz55","name":"Vz. 55","nation":"Czech Republic","cls":"Heavy","role":"flexible burst heavy with clip or single shot","bullets":["2-shot burst then fall back","Strong turret, hull-down","Good at relocating"],"tags":["burst","mobility_med","turret_strong","flex"] },
+    { "id":"vz71","name":"Vz. 71 Tesák","nation":"Czech Republic","cls":"Light","role":"active light with vision pressure","bullets":["Scout aggressively when safe","Relocate constantly","Capitalize on map control"],"tags":["mobility_high","vision","glass","flex"] },
+
+    { "id":"prog65","name":"Progetto M40 mod. 65","nation":"Italy","cls":"Medium","role":"autoreloader all-rounder","bullets":["Burst when opportunity arises","Single shot for consistency","Highly flexible"],"tags":["burst","sustained","mobility_med","flex"] },
+    { "id":"rino","name":"Rinoceronte","nation":"Italy","cls":"Heavy","role":"turreted autoreloader heavy","bullets":["Use A/R windows for picks","Hull-down where possible","Don’t over-commit between shells"],"tags":["burst","turret_strong","control"] },
+    { "id":"minotauro","name":"Controcarro 3 Minotauro","nation":"Italy","cls":"TD","role":"armored autoreloader TD","bullets":["Hull-down bunker","Punish with short bursts","Limited arcs – pre-aim"],"tags":["burst","armor_high","frontline"] },
+
+    { "id":"stb1","name":"STB-1","nation":"Japan","cls":"Medium","role":"hull-down DPM with hydropneumatics","bullets":["Show turret, hide hull","Apply constant pressure","Very map-dependent"],"tags":["turret_strong","sustained","mobility_med","control"] },
+    { "id":"type5","name":"Type 5 Heavy","nation":"Japan","cls":"Heavy","role":"very large bunker-heavy","bullets":["Absorb and trade","Works best in corridors","Team anchor"],"tags":["superheavy","armor_high","mobility_verylow","frontline"] },
+    { "id":"type71","name":"Type 71","nation":"Japan","cls":"Heavy","role":"modern hull-down heavy","bullets":["Use hydro suspension","Strong turret","Methodical pressure"],"tags":["turret_strong","armor_high","frontline"] },
+    { "id":"hori3","name":"Ho-Ri 3","nation":"Japan","cls":"TD","role":"high-alpha turretless TD","bullets":["Punish peeks from range","Angle and pre-aim","Weak to flanks"],"tags":["alpha_high","sniper"] },
+
+    { "id":"cs63","name":"CS-63","nation":"Poland","cls":"Medium","role":"turbo-boost flexible medium","bullets":["Use speed mode smartly","Take early positions","Mid-range support and flanks"],"tags":["mobility_high","flex","sustained"] },
+    { "id":"60tp","name":"60TP Lewandowskiego","nation":"Poland","cls":"Heavy","role":"alpha-trading heavy","bullets":["Big hits around corners","Sidescrape when possible","Punish greed"],"tags":["alpha_high","frontline","armor_high"] },
+    { "id":"nc70","name":"NC-70 Błyskawica","nation":"Poland","cls":"TD","role":"alpha TD with mobility edge","bullets":["Ambush and push windows","Good pen and angles","Avoid overexposure"],"tags":["alpha_high","mobility_med","frontline"] },
+
+    { "id":"udes1516","name":"UDES 15/16","nation":"Sweden","cls":"Medium","role":"hull-down medium with good handling","bullets":["Use hydropneumatics","Positional play and consistency","Can switch flanks"],"tags":["turret_strong","sustained","mobility_med","flex"] },
+    { "id":"kranvagn","name":"Kranvagn","nation":"Sweden","cls":"Heavy","role":"turreted autoloader heavy","bullets":["Hull-down trading","Short bursts, then cover","Control ridges"],"tags":["burst","turret_strong","frontline"] },
+    { "id":"strv103b","name":"Strv 103B","nation":"Sweden","cls":"TD","role":"siege sniper","bullets":["Positional play and camouflage","Laser accuracy in siege mode","Stationary and team-dependent"],"tags":["sniper","sustained","stationary","vision"] }
+  ]
+}
