@@ -518,8 +518,24 @@
     let currentLanguage = 'en';
     let LAST_ANSWERS = null; // Merkt sich aktuelle Antworten für Re-Render nach Sprachwechsel
     let LAST_RENDERED_IDS = null; // IDs der zuletzt gezeigten Tanks für sprachneutrales Re-Render
+    function notifyTranslationFallback(){
+        let banner = document.getElementById('i18nWarn');
+        if(!banner){
+            banner = document.createElement('div');
+            banner.id = 'i18nWarn';
+            banner.setAttribute('role','alert');
+            banner.textContent = 'Translations could not be loaded. Using default language.';
+            banner.style.background = '#ffdddd';
+            banner.style.color = '#a00';
+            banner.style.padding = '0.5rem';
+            banner.style.textAlign = 'center';
+            banner.style.fontWeight = 'bold';
+            document.body.prepend(banner);
+        }
+    }
     async function loadLanguage(lang){
         const file = lang==='de' ? 'german.json' : 'english.json';
+        let loadError = null;
         try{
             const res = await fetch(file, {cache:'no-cache'});
             if(!res.ok) throw new Error('fetch failed');
@@ -531,6 +547,7 @@
                 localStorage.setItem('wot_lang_exp', String(Date.now() + 12*60*60*1000));
             } catch(e){ /* ignore storage errors */ }
         }catch(e){
+            loadError = e;
             // Fallback: behalte bestehende EN-Texte
             I18N = I18N || {
                 ui: {
@@ -566,6 +583,10 @@
                 sections: SECTIONS,
                 tanks: TANKS
             };
+        }
+        if(loadError){
+            console.warn('Failed to load translations for '+lang+', using default language.', loadError);
+            notifyTranslationFallback();
         }
         applyTranslations();
     }
