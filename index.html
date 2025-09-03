@@ -525,6 +525,41 @@
             if(!res.ok) throw new Error('fetch failed');
             I18N = await res.json();
             currentLanguage = lang;
+
+            // Verify translated data against defaults to avoid broken forms
+            try{
+                if(I18N.sections){
+                    let secOk = true;
+                    for(const [k, defArr] of Object.entries(SECTIONS)){
+                        const arr = I18N.sections[k];
+                        if(!Array.isArray(arr) || arr.length !== defArr.length){
+                            console.error('i18n sections mismatch for', k);
+                            secOk = false;
+                        }
+                    }
+                    const extra = Object.keys(I18N.sections).filter(k=>!(k in SECTIONS));
+                    if(extra.length){
+                        console.error('i18n contains unknown sections:', extra.join(', '));
+                        secOk = false;
+                    }
+                    if(!secOk) delete I18N.sections; // fall back to defaults
+                }
+                if(I18N.tanks){
+                    const defIds = new Set(TANKS.map(t=>t.id));
+                    let tankOk = I18N.tanks.length === TANKS.length;
+                    if(tankOk){
+                        for(const t of I18N.tanks){
+                            if(!defIds.has(t.id)){ tankOk = false; break; }
+                        }
+                    }
+                    if(!tankOk){
+                        console.error('i18n tanks mismatch, using defaults');
+                        delete I18N.tanks;
+                    }
+                }
+            }catch(err){
+                console.error('i18n validation failed', err);
+            }
             // Sprache für kurze Zeit merken (12h TTL)
             try {
                 localStorage.setItem('wot_lang', lang);
