@@ -3,7 +3,7 @@
     "pageTitle": "WoT – Neutral Questionnaire & Recommendation",
     "headerTitle": "World of Tanks – Neutral Questionnaire & Tier 10 Recommendation",
     "classesPill": "Classes considered: Light · Medium · Heavy · TD · SPG",
-    "introText": "Answer 40 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.",
+    "introText": "Answer 46 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.",
     "btnStart": "Start questionnaire",
     "btnDemo": "Load sample answers",
     "btnReset": "Reset",
@@ -105,10 +105,18 @@
       "Is it more important to you to be extremely strong in a clear niche rather than just ok everywhere?",
       "Would you prefer a tank that works well solo regardless of team?",
       "Would you be satisfied doing little alone if you are indispensable with a team?"
+    ],
+    "F. Support & Recon": [
+      "Do you enjoy spotting enemies for your team even if you do not damage them?",
+      "Is providing support fire from a distance appealing to you?",
+      "Do you like helping teammates by stunning or tracking opponents?",
+      "Would you prefer staying hidden over trading blows directly?",
+      "Is coordinating with allies to maximize their damage satisfying to you?",
+      "Does indirect contribution, such as assist damage, interest you more than raw damage?"
     ]
   },
   "tanks": [
-    { "id":"is7","name":"IS-7","nation":"USSR","cls":"Heavy","role":"durable frontline heavy, forgiving and mobile enough","bullets":["Sidescrape and trade with 490 alpha","Can push or hold positions","Solid all-rounder for gun marks"],"tags":["armor_high","alpha_med","mobility_med","sustained","frontline","flex"] },
+{ "id":"is7","name":"IS-7","nation":"USSR","cls":"Heavy","role":"durable frontline heavy, forgiving and mobile enough","bullets":["Sidescrape and trade with 490 alpha","Can push or hold positions","Solid all-rounder for gun marks"],"tags":["armor_high","alpha_med","mobility_med","frontline"] },
     { "id":"is4","name":"IS-4","nation":"USSR","cls":"Heavy","role":"classic armor-blocking heavy","bullets":["Sidescrape and play methodically","Trade consistently","Tough but slow"],"tags":["armor_high","sustained","mobility_low","frontline"] },
     { "id":"obj277","name":"Object 277","nation":"USSR","cls":"Heavy","role":"fast alpha-trading heavy","bullets":["Aggressive openings","490 alpha with mobility","Less forgiving of mistakes"],"tags":["alpha_med","mobility_high","flex"] },
     { "id":"obj705a","name":"Object 705A","nation":"USSR","cls":"Heavy","role":"side-scraping brawler with high alpha","bullets":["Close-range trading","Strong sides for angling","Works in corridors"],"tags":["alpha_high","armor_high","mobility_low","frontline"] },

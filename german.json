@@ -3,7 +3,7 @@
     "pageTitle": "WoT – Neutrales Fragenmodul & Empfehlung",
     "headerTitle": "World of Tanks – Neutrales Fragenmodul & Tier‑10‑Empfehlung",
     "classesPill": "Berücksichtigte Klassen: Leicht · Mittel · Schwer · Jagdpanzer · Artillerie",
-    "introText": "Beantworte 40 neutrale Ja/Nein‑Fragen. Am Ende erhältst du 2–3 passende Tier‑10‑Vorschläge (klassenübergreifend), kurze Spielstil‑Hinweise und einen Abschnitt „Warum nicht andere Klassen?“. ",
+    "introText": "Beantworte 46 neutrale Ja/Nein‑Fragen. Am Ende erhältst du 2–3 passende Tier‑10‑Vorschläge (klassenübergreifend), kurze Spielstil‑Hinweise und einen Abschnitt „Warum nicht andere Klassen?“. ",
     "btnStart": "Fragebogen starten",
     "btnDemo": "Beispielantworten laden",
     "btnReset": "Zurücksetzen",
@@ -105,10 +105,18 @@
       "Ist es dir wichtiger, in einer klaren Nische extrem stark zu sein, statt überall nur okay?",
       "Würdest du einen Panzer bevorzugen, der solo gut funktioniert – unabhängig vom Team?",
       "Wärst du zufrieden, alleine wenig zu machen, wenn du im Team unentbehrlich bist?"
+    ],
+    "F. Unterstützung & Aufklärung": [
+      "Macht es dir Spaß, Gegner für dein Team aufzuklären, auch wenn du sie nicht selbst beschädigst?",
+      "Findest du Unterstützungsfeuer aus der Distanz reizvoll?",
+      "Hilfst du gern Teamkameraden, indem du Gegner betäubst oder kettest?",
+      "Bleibst du lieber verborgen, statt direkt Schüsse zu tauschen?",
+      "Empfindest du es als befriedigend, mit Verbündeten zu koordinieren, um deren Schaden zu maximieren?",
+      "Interessiert dich indirekter Beitrag, z. B. Assistenzschaden, mehr als direkter Schaden?"
     ]
   },
   "tanks": [
-    { "id":"is7","name":"IS-7","nation":"UdSSR","cls":"Schwer","role":"robuster Frontlinien‑Schwerer, verzeihend und ausreichend mobil","bullets":["Seitlich anwinkeln und mit 490 Alpha traden","Kann Positionen drücken oder halten","Solider Allrounder fürs Markieren"],"tags":["armor_high","alpha_med","mobility_med","sustained","frontline","flex"] },
+{ "id":"is7","name":"IS-7","nation":"UdSSR","cls":"Schwer","role":"robuster Frontlinien‑Schwerer, verzeihend und ausreichend mobil","bullets":["Seitlich anwinkeln und mit 490 Alpha traden","Kann Positionen drücken oder halten","Solider Allrounder fürs Markieren"],"tags":["armor_high","alpha_med","mobility_med","frontline"] },
     { "id":"is4","name":"IS-4","nation":"UdSSR","cls":"Schwer","role":"klassischer Riegel‑Schwerer","bullets":["Seitlich anwinkeln und methodisch spielen","Konstant traden","Zäh, aber langsam"],"tags":["armor_high","sustained","mobility_low","frontline"] },
     { "id":"obj277","name":"Object 277","nation":"UdSSR","cls":"Schwer","role":"schneller Alpha‑Trader","bullets":["Aggressive Eröffnungen","490 Alpha mit Mobilität","Weniger verzeihend bei Fehlern"],"tags":["alpha_med","mobility_high","flex"] },
     { "id":"obj705a","name":"Object 705A","nation":"UdSSR","cls":"Schwer","role":"Seiten‑Scraper‑Brawler mit hohem Alpha","bullets":["Nahkampf‑Trading","Starke Seiten zum Anwinkeln","Funktioniert in Korridoren"],"tags":["alpha_high","armor_high","mobility_low","frontline"] },

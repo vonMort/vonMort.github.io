@@ -59,7 +59,7 @@
     </header>
 
     <div class="card" id="intro">
-        <p class="muted" id="introText">Answer 40 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.</p>
+        <p class="muted" id="introText">Answer 46 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.</p>
         <div class="actions">
             <button class="primary" id="btnStart" onclick="start()">Start questionnaire</button>
             <button id="btnDemo" onclick="demoFill()">Load sample answers</button>
@@ -127,6 +127,14 @@
             'Is it more important to you to be extremely strong in a clear niche rather than just ok everywhere?',
             'Would you prefer a tank that works well solo regardless of team?',
             'Would you be satisfied doing little alone if you are indispensable with a team?'
+        ],
+        'F. Support & Recon': [
+            'Do you enjoy spotting enemies for your team even if you do not damage them?',
+            'Is providing support fire from a distance appealing to you?',
+            'Do you like helping teammates by stunning or tracking opponents?',
+            'Would you prefer staying hidden over trading blows directly?',
+            'Is coordinating with allies to maximize their damage satisfying to you?',
+            'Does indirect contribution, such as assist damage, interest you more than raw damage?'
         ]
     };
     const TANKS = [
@@ -134,7 +142,7 @@
         { id:'is7', name:'IS-7', nation:'USSR', cls:'Heavy',
             role:'durable frontline heavy, forgiving and mobile enough',
             bullets:['Sidescrape and trade with 490 alpha','Can push or hold positions','Solid all-rounder for gun marks'],
-            tags:['armor_high','alpha_med','mobility_med','sustained','frontline','flex'] },
+            tags:['armor_high','alpha_med','mobility_med','frontline'] },
         { id:'is4', name:'IS-4', nation:'USSR', cls:'Heavy',
             role:'classic armor-blocking heavy',
             bullets:['Sidescrape and play methodically','Trade consistently','Tough but slow'],
@@ -482,6 +490,22 @@
         if(a(38)) pref.flexibility+=0; else pref.sustained+=1;
         if(a(39)) pref.flexibility+=2; else pref.indirect+=1;
         if(a(40)) pref.indirect+=2; else pref.presence+=1;
+        if(a(41)) pref.vision+=2;
+        if(a(42)) pref.indirect+=2;
+        if(a(43)) pref.indirect+=1;
+        if(a(44)) {pref.vision+=1;} else {pref.presence+=1;}
+        if(a(45)) pref.indirect+=1;
+        if(a(46)) pref.indirect+=1; else pref.alpha+=1;
+        // neutralize inherent positive bias
+        pref.mobility-=0.5;
+        pref.sustained-=8.5;
+        pref.burst-=1.5;
+        pref.presence-=5.5;
+        pref.indirect-=7;
+        pref.armor-=2;
+        pref.alpha-=2.5;
+        pref.vision-=2.5;
+        pref.flexibility-=4.5;
         function scoreTank(t){
             let s=0; const tags=t.tags||[];
             if(tags.includes('mobility_high')) s+=pref.mobility>1?2:0;
