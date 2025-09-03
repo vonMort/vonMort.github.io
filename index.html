@@ -516,6 +516,7 @@
     // i18n loading
     let I18N = null;
     let currentLanguage = 'en';
+    let LAST_ANSWERS = null; // Merkt sich aktuelle Antworten für Re-Render nach Sprachwechsel
     async function loadLanguage(lang){
         const file = lang==='de' ? 'german.json' : 'english.json';
         try{
@@ -523,8 +524,13 @@
             if(!res.ok) throw new Error('fetch failed');
             I18N = await res.json();
             currentLanguage = lang;
+            // Sprache für kurze Zeit merken (12h TTL)
+            try {
+                localStorage.setItem('wot_lang', lang);
+                localStorage.setItem('wot_lang_exp', String(Date.now() + 12*60*60*1000));
+            } catch(e){ /* ignore storage errors */ }
         }catch(e){
-            // Fallback: keep existing English inline strings
+            // Fallback: behalte bestehende EN-Texte
             I18N = I18N || {
                 ui: {
                     pageTitle: document.title,
@@ -550,7 +556,7 @@
                     },
                     diagnosticsTitle: 'Diagnostics (top scores)',
                     scoreLabel: 'Score',
-                    footer: document.getElementById('footerText')?.textContent || 'Single‑file app.',
+                    footer: document.querySelector('footer p')?.textContent || 'Single‑file app.',
                     yesLabel: 'Yes',
                     noLabel: 'No',
                     alertInternalError: 'Internal error at question {i}',
@@ -567,7 +573,7 @@
         document.documentElement.lang = currentLanguage==='de'?'de':'en';
         document.title = I18N.ui.pageTitle || document.title;
         const $ = (id)=>document.getElementById(id);
-        const set = (id, val)=>{ const el=$(id); if(el) el.textContent=val; };
+        const set = (id, val)=>{ const el=$(id); if(el && typeof val==='string') el.textContent=val; };
         set('appTitle', I18N.ui.headerTitle);
         set('classPill', I18N.ui.classesPill);
         set('introText', I18N.ui.introText);
@@ -575,24 +581,68 @@
         set('btnDemo', I18N.ui.btnDemo);
         set('btnReset', I18N.ui.btnReset);
         const footerEl = document.querySelector('footer p'); if(footerEl) footerEl.id='footerText', footerEl.textContent=I18N.ui.footer;
-        // Reset dynamic content to avoid mixed language state
-        resetAll();
+
+        // Formulartexte aktualisieren, Antworten erhalten
+        const formWrap = document.getElementById('formWrap');
+        if(formWrap && formWrap.style.display !== 'none'){
+            rebuildFormPreserveAnswers();
+        }
+        // Ergebnisse neu rendern, falls vorhanden
+        const resultBox = document.getElementById('result');
+        if(resultBox && resultBox.style.display !== 'none' && Array.isArray(LAST_ANSWERS)){
+            const {pref,scored} = evaluate(LAST_ANSWERS);
+            const top = scored.slice(0,6);
+            const picked=[];
+            for(const s of top){
+                if(picked.length>=3) break;
+                if(!picked.find(p=>p.t.id===s.t.id)) picked.push(s);
+            }
+            renderResult(picked.map(x=>x.t), pref, scored);
+        }
     }
     document.addEventListener('DOMContentLoaded', ()=>{
         const btnDE=document.getElementById('btnLangDE');
         const btnEN=document.getElementById('btnLangEN');
         if(btnDE) btnDE.addEventListener('click', ()=>loadLanguage('de'));
         if(btnEN) btnEN.addEventListener('click', ()=>loadLanguage('en'));
-        loadLanguage('en');
+        // Gespeicherte Sprache mit TTL laden
+        let initial = 'en';
+        try{
+            const lang = localStorage.getItem('wot_lang');
+            const exp = Number(localStorage.getItem('wot_lang_exp')||0);
+            if(lang && Date.now() < exp) initial = lang;
+        }catch(e){}
+        loadLanguage(initial);
     });
 
-    function start(){
+    function getSectionsSrc(){
+        return (window.I18N && I18N.sections) ? I18N.sections : SECTIONS;
+    }
+    function getTotalQuestions(){
+        const secs = getSectionsSrc();
+        let total = 0;
+        for(const qs of Object.values(secs)) total += (qs?.length||0);
+        return total;
+    }
+    function getCurrentAnswersFromDOM(){
+        const total = getTotalQuestions();
+        const answers = [];
+        for(let i=1;i<=total;i++){
+            const y=document.getElementById('q'+i+'y');
+            const n=document.getElementById('q'+i+'n');
+            if(!y||!n){ answers.push(null); continue; }
+            if(y.checked) answers.push(true);
+            else if(n.checked) answers.push(false);
+            else answers.push(null);
+        }
+        return answers;
+    }
+    function buildForm(answersPreset){
         const wrap=document.getElementById('formWrap');
         wrap.innerHTML='';
         wrap.style.display='grid';
-
         let idx=0; const form=document.createElement('form');
-        for(const [section,qs] of Object.entries(SECTIONS)){
+        for(const [section,qs] of Object.entries(getSectionsSrc())){
             const sec=document.createElement('div'); sec.style.marginBottom='1em';
             sec.className='card';
             const h=document.createElement('div');h.className='section-title';h.textContent=section;sec.appendChild(h);
@@ -604,31 +654,52 @@
           <input type="radio" name="q${idx}" id="q${idx}y" value="yes"><label for="q${idx}y">${(I18N&&I18N.ui&&I18N.ui.yesLabel)||'Yes'}</label>
           <input type="radio" name="q${idx}" id="q${idx}n" value="no"><label for="q${idx}n">${(I18N&&I18N.ui&&I18N.ui.noLabel)||'No'}</label>
         `;
+                // Antworten wiederherstellen
+                if(Array.isArray(answersPreset) && typeof answersPreset[idx-1] === 'boolean'){
+                    const val = answersPreset[idx-1];
+                    const y=document.getElementById('q'+idx+'y');
+                    const n=document.getElementById('q'+idx+'n');
+                    // y/n greifen erst nach Einfügen der row in DOM
+                    setTimeout(()=>{
+                        const yy=document.getElementById('q'+idx+'y');
+                        const nn=document.getElementById('q'+idx+'n');
+                        if(yy && nn){
+                            if(val===true) yy.checked = true; else nn.checked = true;
+                        }
+                    },0);
+                }
                 row.appendChild(yn);
                 sec.appendChild(row);
             });
             form.appendChild(sec);
         }
-
         const actions=document.createElement('div');actions.className='actions';
         const btn=document.createElement('button');btn.type='button';btn.className='primary';btn.textContent=(I18N&&I18N.ui&&I18N.ui.btnShowResults)||'Show results';btn.onclick=submit;
         actions.appendChild(btn);
         const reset=document.createElement('button');reset.type='button';reset.textContent=(I18N&&I18N.ui&&I18N.ui.btnReset)||'Reset';reset.onclick=resetAll;actions.appendChild(reset);
         form.appendChild(actions);
-
         wrap.appendChild(form);
+    }
+    function rebuildFormPreserveAnswers(){
+        const answers = getCurrentAnswersFromDOM();
+        buildForm(answers);
+    }
+    function start(){
+        buildForm(null);
         document.getElementById('intro').style.display='none';
     }
 
     function submit(){
+        const total = getTotalQuestions();
         const answers=[];
-        for(let i=1;i<=40;i++){
+        for(let i=1;i<=total;i++){
             const y=document.getElementById('q'+i+'y');
             const n=document.getElementById('q'+i+'n');
             if(!y||!n){const msg=(I18N&&I18N.ui&&I18N.ui.alertInternalError)||'Internal error at question {i}';alert(msg.replace('{i}',String(i)));return}
             if(!y.checked && !n.checked){const msg=(I18N&&I18N.ui&&I18N.ui.alertMissing)||'Please answer all questions. Missing: {i}';alert(msg.replace('{i}',String(i)));return}
             answers.push(!!y.checked);
         }
+        LAST_ANSWERS = answers.slice();
 
         const {pref,scored}=evaluate(answers);
         const top = scored.slice(0,6);
@@ -709,10 +780,12 @@
 
     function demoFill(){
         start();
+        const total = getTotalQuestions();
         const yes=[3,6,9,10,13,16,17,19,20,21,23,24,27,29,31,33,35,36,37,39,40];
-        for(let i=1;i<=40;i++){
+        for(let i=1;i<=total;i++){
             const y=document.getElementById('q'+i+'y');
             const n=document.getElementById('q'+i+'n');
+            if(!y||!n) continue;
             if(yes.includes(i)) y.checked=true; else n.checked=true;
         }
     }
