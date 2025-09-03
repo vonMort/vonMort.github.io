@@ -517,6 +517,7 @@
     let I18N = null;
     let currentLanguage = 'en';
     let LAST_ANSWERS = null; // Merkt sich aktuelle Antworten für Re-Render nach Sprachwechsel
+    let LAST_RENDERED_IDS = null; // IDs der zuletzt gezeigten Tanks für sprachneutrales Re-Render
     async function loadLanguage(lang){
         const file = lang==='de' ? 'german.json' : 'english.json';
         try{
@@ -587,17 +588,29 @@
         if(formWrap && formWrap.style.display !== 'none'){
             rebuildFormPreserveAnswers();
         }
-        // Ergebnisse neu rendern, falls vorhanden
+        // Ergebnisse neu rendern: bevorzugt exakt dieselben Tanks, sonst anhand Antworten
         const resultBox = document.getElementById('result');
-        if(resultBox && resultBox.style.display !== 'none' && Array.isArray(LAST_ANSWERS)){
-            const {pref,scored} = evaluate(LAST_ANSWERS);
-            const top = scored.slice(0,6);
-            const picked=[];
-            for(const s of top){
-                if(picked.length>=3) break;
-                if(!picked.find(p=>p.t.id===s.t.id)) picked.push(s);
+        if(resultBox && resultBox.style.display !== 'none'){
+            const tanksSrc = (I18N && I18N.tanks) ? I18N.tanks : TANKS;
+            if(Array.isArray(LAST_RENDERED_IDS) && LAST_RENDERED_IDS.length){
+                const byId = new Map(tanksSrc.map(t=>[t.id, t]));
+                const tanks = LAST_RENDERED_IDS.map(id=>byId.get(id)).filter(Boolean);
+                let pref=null, scored=null;
+                if(Array.isArray(LAST_ANSWERS)){
+                    const r = evaluate(LAST_ANSWERS);
+                    pref = r.pref; scored = r.scored;
+                }
+                renderResult(tanks, pref, scored||[]);
+            } else if(Array.isArray(LAST_ANSWERS)){
+                const {pref,scored} = evaluate(LAST_ANSWERS);
+                const top = scored.slice(0,6);
+                const picked=[];
+                for(const s of top){
+                    if(picked.length>=3) break;
+                    if(!picked.find(p=>p.t.id===s.t.id)) picked.push(s);
+                }
+                renderResult(picked.map(x=>x.t), pref, scored);
             }
-            renderResult(picked.map(x=>x.t), pref, scored);
         }
     }
     document.addEventListener('DOMContentLoaded', ()=>{
@@ -654,20 +667,6 @@
           <input type="radio" name="q${idx}" id="q${idx}y" value="yes"><label for="q${idx}y">${(I18N&&I18N.ui&&I18N.ui.yesLabel)||'Yes'}</label>
           <input type="radio" name="q${idx}" id="q${idx}n" value="no"><label for="q${idx}n">${(I18N&&I18N.ui&&I18N.ui.noLabel)||'No'}</label>
         `;
-                // Antworten wiederherstellen
-                if(Array.isArray(answersPreset) && typeof answersPreset[idx-1] === 'boolean'){
-                    const val = answersPreset[idx-1];
-                    const y=document.getElementById('q'+idx+'y');
-                    const n=document.getElementById('q'+idx+'n');
-                    // y/n greifen erst nach Einfügen der row in DOM
-                    setTimeout(()=>{
-                        const yy=document.getElementById('q'+idx+'y');
-                        const nn=document.getElementById('q'+idx+'n');
-                        if(yy && nn){
-                            if(val===true) yy.checked = true; else nn.checked = true;
-                        }
-                    },0);
-                }
                 row.appendChild(yn);
                 sec.appendChild(row);
             });
@@ -679,6 +678,19 @@
         const reset=document.createElement('button');reset.type='button';reset.textContent=(I18N&&I18N.ui&&I18N.ui.btnReset)||'Reset';reset.onclick=resetAll;actions.appendChild(reset);
         form.appendChild(actions);
         wrap.appendChild(form);
+
+        // Antworten nach dem Einfügen der Form wiederherstellen
+        if(Array.isArray(answersPreset)){
+            for(let i=0;i<answersPreset.length;i++){
+                const val = answersPreset[i];
+                if(typeof val === 'boolean'){
+                    const idx1 = i+1;
+                    const y=document.getElementById('q'+idx1+'y');
+                    const n=document.getElementById('q'+idx1+'n');
+                    if(y && n){ if(val===true) y.checked = true; else n.checked = true; }
+                }
+            }
+        }
     }
     function rebuildFormPreserveAnswers(){
         const answers = getCurrentAnswersFromDOM();
@@ -732,6 +744,9 @@
             box.appendChild(div);
         });
 
+        // Merke IDs der angezeigten Tanks für erneutes Rendern bei Sprachwechsel
+        LAST_RENDERED_IDS = tanks.slice(0,3).map(t=>t.id);
+
         const other = document.createElement('div'); other.style.marginTop='14px'; other.style.marginBottom='10px';
         const sum=document.createElement('details');
         sum.innerHTML=`<summary>${(I18N&&I18N.ui&&I18N.ui.whyNotTitle)||'Why not other classes?'}</summary>`;
@@ -776,6 +791,8 @@
         document.getElementById('formWrap').innerHTML='';
         document.getElementById('result').style.display='none';
         document.getElementById('result').innerHTML='';
+        LAST_ANSWERS = null;
+        LAST_RENDERED_IDS = null;
     }
 
     function demoFill(){
