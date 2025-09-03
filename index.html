@@ -545,18 +545,18 @@
             // Verify translated data against defaults to avoid broken forms
             try{
                 if(I18N.sections){
-                    let secOk = true;
-                    for(const [k, defArr] of Object.entries(SECTIONS)){
-                        const arr = I18N.sections[k];
-                        if(!Array.isArray(arr) || arr.length !== defArr.length){
-                            console.error('i18n sections mismatch for', k);
-                            secOk = false;
+                    // Compare translated sections by order and length only.
+                    const defVals = Object.values(SECTIONS);
+                    const transVals = Object.values(I18N.sections);
+                    let secOk = defVals.length === transVals.length;
+                    if(secOk){
+                        for(let i=0;i<defVals.length;i++){
+                            if(!Array.isArray(transVals[i]) || transVals[i].length !== defVals[i].length){
+                                console.error('i18n sections mismatch at index', i);
+                                secOk = false;
+                                break;
+                            }
                         }
-                    }
-                    const extra = Object.keys(I18N.sections).filter(k=>!(k in SECTIONS));
-                    if(extra.length){
-                        console.error('i18n contains unknown sections:', extra.join(', '));
-                        secOk = false;
                     }
                     if(!secOk) delete I18N.sections; // fall back to defaults
                 }
