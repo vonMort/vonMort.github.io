@@ -59,7 +59,7 @@
     </header>
 
     <div class="card" id="intro">
-        <p class="muted" id="introText">Answer 40 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.</p>
+        <p class="muted" id="introText">Answer 46 neutral yes/no questions. At the end you'll receive 2–3 suitable tier 10 suggestions (across classes), brief playstyle notes and a section “Why not other classes?”.</p>
         <div class="actions">
             <button class="primary" id="btnStart" onclick="start()">Start questionnaire</button>
             <button id="btnDemo" onclick="demoFill()">Load sample answers</button>
@@ -127,6 +127,14 @@
             'Is it more important to you to be extremely strong in a clear niche rather than just ok everywhere?',
             'Would you prefer a tank that works well solo regardless of team?',
             'Would you be satisfied doing little alone if you are indispensable with a team?'
+        ],
+        'F. Support & Recon': [
+            'Do you enjoy spotting enemies for your team even if you do not damage them?',
+            'Is providing support fire from a distance appealing to you?',
+            'Do you like helping teammates by stunning or tracking opponents?',
+            'Would you prefer staying hidden over trading blows directly?',
+            'Is coordinating with allies to maximize their damage satisfying to you?',
+            'Does indirect contribution, such as assist damage, interest you more than raw damage?'
         ]
     };
     const TANKS = [
@@ -134,7 +142,7 @@
         { id:'is7', name:'IS-7', nation:'USSR', cls:'Heavy',
             role:'durable frontline heavy, forgiving and mobile enough',
             bullets:['Sidescrape and trade with 490 alpha','Can push or hold positions','Solid all-rounder for gun marks'],
-            tags:['armor_high','alpha_med','mobility_med','sustained','frontline','flex'] },
+            tags:['armor_high','alpha_med','mobility_med','frontline'] },
         { id:'is4', name:'IS-4', nation:'USSR', cls:'Heavy',
             role:'classic armor-blocking heavy',
             bullets:['Sidescrape and play methodically','Trade consistently','Tough but slow'],
@@ -482,6 +490,22 @@
         if(a(38)) pref.flexibility+=0; else pref.sustained+=1;
         if(a(39)) pref.flexibility+=2; else pref.indirect+=1;
         if(a(40)) pref.indirect+=2; else pref.presence+=1;
+        if(a(41)) pref.vision+=2;
+        if(a(42)) pref.indirect+=2;
+        if(a(43)) pref.indirect+=1;
+        if(a(44)) {pref.vision+=1;} else {pref.presence+=1;}
+        if(a(45)) pref.indirect+=1;
+        if(a(46)) pref.indirect+=1; else pref.alpha+=1;
+        // neutralize inherent positive bias
+        pref.mobility-=0.5;
+        pref.sustained-=8.5;
+        pref.burst-=1.5;
+        pref.presence-=5.5;
+        pref.indirect-=7;
+        pref.armor-=2;
+        pref.alpha-=2.5;
+        pref.vision-=2.5;
+        pref.flexibility-=4.5;
         function scoreTank(t){
             const tags = t.tags || [];
             const contrib = [];
@@ -553,19 +577,71 @@
     let currentLanguage = 'en';
     let LAST_ANSWERS = null; // Merkt sich aktuelle Antworten für Re-Render nach Sprachwechsel
     let LAST_RENDERED_IDS = null; // IDs der zuletzt gezeigten Tanks für sprachneutrales Re-Render
+    function notifyTranslationFallback(){
+        let banner = document.getElementById('i18nWarn');
+        if(!banner){
+            banner = document.createElement('div');
+            banner.id = 'i18nWarn';
+            banner.setAttribute('role','alert');
+            banner.textContent = 'Translations could not be loaded. Using default language.';
+            banner.style.background = '#ffdddd';
+            banner.style.color = '#a00';
+            banner.style.padding = '0.5rem';
+            banner.style.textAlign = 'center';
+            banner.style.fontWeight = 'bold';
+            document.body.prepend(banner);
+        }
+    }
     async function loadLanguage(lang){
         const file = lang==='de' ? 'german.json' : 'english.json';
+        let loadError = null;
         try{
             const res = await fetch(file, {cache:'no-cache'});
             if(!res.ok) throw new Error('fetch failed');
             I18N = await res.json();
             currentLanguage = lang;
+
+            // Verify translated data against defaults to avoid broken forms
+            try{
+                if(I18N.sections){
+                    // Compare translated sections by order and length only.
+                    const defVals = Object.values(SECTIONS);
+                    const transVals = Object.values(I18N.sections);
+                    let secOk = defVals.length === transVals.length;
+                    if(secOk){
+                        for(let i=0;i<defVals.length;i++){
+                            if(!Array.isArray(transVals[i]) || transVals[i].length !== defVals[i].length){
+                                console.error('i18n sections mismatch at index', i);
+                                secOk = false;
+                                break;
+                            }
+                        }
+                    }
+                    if(!secOk) delete I18N.sections; // fall back to defaults
+                }
+                if(I18N.tanks){
+                    const defIds = new Set(TANKS.map(t=>t.id));
+                    let tankOk = I18N.tanks.length === TANKS.length;
+                    if(tankOk){
+                        for(const t of I18N.tanks){
+                            if(!defIds.has(t.id)){ tankOk = false; break; }
+                        }
+                    }
+                    if(!tankOk){
+                        console.error('i18n tanks mismatch, using defaults');
+                        delete I18N.tanks;
+                    }
+                }
+            }catch(err){
+                console.error('i18n validation failed', err);
+            }
             // Sprache für kurze Zeit merken (12h TTL)
             try {
                 localStorage.setItem('wot_lang', lang);
                 localStorage.setItem('wot_lang_exp', String(Date.now() + 12*60*60*1000));
             } catch(e){ /* ignore storage errors */ }
         }catch(e){
+            loadError = e;
             // Fallback: behalte bestehende EN-Texte
             I18N = I18N || {
                 ui: {
@@ -601,6 +677,10 @@
                 sections: SECTIONS,
                 tanks: TANKS
             };
+        }
+        if(loadError){
+            console.warn('Failed to load translations for '+lang+', using default language.', loadError);
+            notifyTranslationFallback();
         }
         applyTranslations();
     }
@@ -770,11 +850,13 @@
             const div=document.createElement('div');div.className='recommendation';
             const roleLabel=(I18N&&I18N.ui&&I18N.ui.roleLabel)||'Role';
             const tagsLabel=(I18N&&I18N.ui&&I18N.ui.tagsLabel)||'Tags';
+            const tagMap = I18N && I18N.tags;
+            const tagNames = t.tags.map(k => (tagMap && tagMap[k]) || k).join(', ');
             div.innerHTML=`
         <div class="rec-title">${t.name} (${t.nation}, ${t.cls})</div>
         <div class="muted">${roleLabel}: ${t.role}</div>
         <ul class="bullets">${t.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
-        <div class="tag muted">${tagsLabel}: ${t.tags.join(', ')}</div>
+        <div class="tag muted">${tagsLabel}: ${tagNames}</div>
       `;
             box.appendChild(div);
         });
