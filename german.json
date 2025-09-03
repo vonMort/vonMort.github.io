@@ -29,6 +29,32 @@
     "alertInternalError": "Interner Fehler bei Frage {i}",
     "alertMissing": "Bitte beantworte alle Fragen. Fehlend: {i}"
   },
+  "tags": {
+    "alpha_high": "Hohe Alpha",
+    "alpha_med": "Mittlere Alpha",
+    "alpha_veryhigh": "Sehr hohe Alpha",
+    "armor_high": "Starke Panzerung",
+    "armor_med": "Mittlere Panzerung",
+    "arty": "Artillerie",
+    "burst": "Burst-Schaden",
+    "control": "Kontrolle",
+    "flex": "Flexibel",
+    "frontline": "Frontnah",
+    "glass": "Sehr fragil",
+    "glass_light": "Leicht gepanzert",
+    "indirect": "Indirekt",
+    "med_heavy": "Medium-Schwer-Mix",
+    "mobility_high": "Hohe Mobilität",
+    "mobility_low": "Geringe Mobilität",
+    "mobility_med": "Mittlere Mobilität",
+    "mobility_verylow": "Sehr geringe Mobilität",
+    "sniper": "Sniper",
+    "stationary": "Stationär",
+    "superheavy": "Super-schwer",
+    "sustained": "Konstante DPM",
+    "turret_strong": "Starker Turm",
+    "vision": "Sicht"
+  },
   "sections": {
     "A. Tempo & Komfort": [
       "Fühlst du dich wohler, wenn Gefechte langsam beginnen?",

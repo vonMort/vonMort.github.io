@@ -29,6 +29,32 @@
     "alertInternalError": "Internal error at question {i}",
     "alertMissing": "Please answer all questions. Missing: {i}"
   },
+  "tags": {
+    "alpha_high": "High alpha",
+    "alpha_med": "Medium alpha",
+    "alpha_veryhigh": "Very high alpha",
+    "armor_high": "Strong armor",
+    "armor_med": "Moderate armor",
+    "arty": "Artillery",
+    "burst": "Burst damage",
+    "control": "Control",
+    "flex": "Flexible",
+    "frontline": "Frontline",
+    "glass": "Very fragile",
+    "glass_light": "Lightly armored",
+    "indirect": "Indirect",
+    "med_heavy": "Medium-heavy mix",
+    "mobility_high": "High mobility",
+    "mobility_low": "Low mobility",
+    "mobility_med": "Average mobility",
+    "mobility_verylow": "Very low mobility",
+    "sniper": "Sniper",
+    "stationary": "Stationary",
+    "superheavy": "Super-heavy",
+    "sustained": "Sustained DPM",
+    "turret_strong": "Strong turret",
+    "vision": "Vision"
+  },
   "sections": {
     "A. Pace & Comfort": [
       "Do you feel more comfortable when battles start slowly?",
