@@ -756,11 +756,13 @@
             const div=document.createElement('div');div.className='recommendation';
             const roleLabel=(I18N&&I18N.ui&&I18N.ui.roleLabel)||'Role';
             const tagsLabel=(I18N&&I18N.ui&&I18N.ui.tagsLabel)||'Tags';
+            const tagMap = I18N && I18N.tags;
+            const tagNames = t.tags.map(k => (tagMap && tagMap[k]) || k).join(', ');
             div.innerHTML=`
         <div class="rec-title">${t.name} (${t.nation}, ${t.cls})</div>
         <div class="muted">${roleLabel}: ${t.role}</div>
         <ul class="bullets">${t.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
-        <div class="tag muted">${tagsLabel}: ${t.tags.join(', ')}</div>
+        <div class="tag muted">${tagsLabel}: ${tagNames}</div>
       `;
             box.appendChild(div);
         });
