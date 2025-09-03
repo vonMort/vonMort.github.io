@@ -483,29 +483,64 @@
         if(a(39)) pref.flexibility+=2; else pref.indirect+=1;
         if(a(40)) pref.indirect+=2; else pref.presence+=1;
         function scoreTank(t){
-            let s=0; const tags=t.tags||[];
-            if(tags.includes('mobility_high')) s+=pref.mobility>1?2:0;
-            if(tags.includes('mobility_med')) s+=pref.mobility>=0?1:0;
-            if(tags.includes('mobility_low')||tags.includes('mobility_verylow')) s+=(pref.mobility<0?2:0);
+            const tags = t.tags || [];
+            const contrib = [];
 
-            if(tags.includes('sustained')) s+=pref.sustained;
-            if(tags.includes('control')) s+=Math.max(0, Math.floor(pref.sustained/2));
-            if(tags.includes('burst')||tags.includes('burst_light')) s+=pref.burst;
+            // Mobilität (nur eine Ausprägung zählt)
+            let m = 0;
+            if (tags.includes('mobility_high')) m += (pref.mobility > 1 ? 2 : 0);
+            else if (tags.includes('mobility_med')) m += (pref.mobility > 0 ? 1 : 0); // vorher: >=0
+            else if (tags.includes('mobility_low') || tags.includes('mobility_verylow')) m += (pref.mobility < 0 ? 2 : 0);
+            if (m) contrib.push(m);
 
-            if(tags.includes('frontline')) s+=pref.presence;
-            if(tags.includes('vision')||tags.includes('sniper')) s+=pref.vision;
+            // Schadensprofil: nimm die stärkste von sustained/control/burst
+            let d = 0;
+            if (tags.includes('sustained')) d = Math.max(d, pref.sustained);
+            if (tags.includes('control')) d = Math.max(d, Math.max(0, Math.floor(pref.sustained / 2)));
+            if (tags.includes('burst') || tags.includes('burst_light')) d = Math.max(d, pref.burst);
+            if (d) contrib.push(d);
 
-            if(tags.includes('armor_high')||tags.includes('superheavy')||tags.includes('turret_strong')) s+=pref.armor;
-            if(tags.includes('glass')||tags.includes('glass_light')) s+= (pref.armor<0?2:0);
-            if(tags.includes('armor_med')) s+=Math.max(0, Math.floor(pref.armor/2));
+            // Präsenz
+            let pr = 0;
+            if (tags.includes('frontline')) pr += pref.presence;
+            if (pr) contrib.push(pr);
 
-            if(tags.includes('alpha_high')||tags.includes('alpha_veryhigh')||tags.includes('alpha_med')) s+=pref.alpha;
+            // Vision/Fernwirkung
+            let vi = 0;
+            if (tags.includes('vision') || tags.includes('sniper')) vi += pref.vision;
+            if (vi) contrib.push(vi);
 
-            if(tags.includes('flex')||tags.includes('med_heavy')) s+=pref.flexibility;
+            // Panzerung/Glas (kombinierbar, aber als eine Kategorie behandelt)
+            let ar = 0;
+            if (tags.includes('armor_high') || tags.includes('superheavy') || tags.includes('turret_strong')) ar += pref.armor;
+            if (tags.includes('armor_med')) ar += Math.max(0, Math.floor(pref.armor / 2));
+            if (tags.includes('glass') || tags.includes('glass_light')) ar += (pref.armor < 0 ? 2 : 0);
+            if (ar) contrib.push(ar);
 
-            if(tags.includes('arty')||tags.includes('indirect')||tags.includes('stationary')) s+=pref.indirect;
+            // Alpha
+            let al = 0;
+            if (tags.includes('alpha_high') || tags.includes('alpha_veryhigh') || tags.includes('alpha_med')) al += pref.alpha;
+            if (al) contrib.push(al);
 
-            return s;
+            // Flexibilität
+            let fx = 0;
+            if (tags.includes('flex') || tags.includes('med_heavy')) fx += pref.flexibility;
+            if (fx) contrib.push(fx);
+
+            // Indirekt/Arty
+            let ind = 0;
+            if (tags.includes('arty') || tags.includes('indirect') || tags.includes('stationary')) ind += pref.indirect;
+            if (ind) contrib.push(ind);
+
+            // Abnehmende Grenznutzen: stärkste Beiträge zählen am meisten
+            contrib.sort((a, b) => b - a);
+            const weights = [1.0, 0.85, 0.7, 0.55, 0.4, 0.25, 0.15, 0.1];
+            let s = 0;
+            for (let i = 0; i < contrib.length; i++) {
+                const w = weights[i] || 0.05;
+                s += contrib[i] * w;
+            }
+            return Math.round(s * 100) / 100;
         }
 
         const tanksSrc = (window.I18N && I18N.tanks) ? I18N.tanks : TANKS;
